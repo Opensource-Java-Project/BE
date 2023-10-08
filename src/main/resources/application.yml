@@ -6,8 +6,8 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/board_spring?serverTimezone=UTC&characterEncoding=UTF-8
-    username: boardspring
+    url: jdbc:mysql://localhost:3306/sharing_service?serverTimezone=UTC&characterEncoding=UTF-8
+    username: sharingservice
     password: dpsjwlvk7&
   thymeleaf:
     cache: false
