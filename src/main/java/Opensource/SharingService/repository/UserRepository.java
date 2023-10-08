@@ -7,10 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
+
 public interface UserRepository {
-    User save(User user);
+    User save(UserEntity user);
 //    Optional<User> findByName(String name);
-    Optional<User> findById(Long id);
-    List<User> finAll();
+    Optional<UserEntity> findById(Long id);
+    List<UserEntity> finAll();
 
 }

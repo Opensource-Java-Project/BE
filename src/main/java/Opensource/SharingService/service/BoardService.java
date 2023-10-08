@@ -1,2 +1,10 @@
-package Opensource.SharingService.service;public class BoardService {
+package Opensource.SharingService.service;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class BoardService {
+
 }
