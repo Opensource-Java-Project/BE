@@ -2,17 +2,18 @@
 server:
   port: 8080
 
-# database 연동 설정
+#h2 database
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/sharing_service?serverTimezone=UTC&characterEncoding=UTF-8
-    username: sharingservice
-    password: dpsjwlvk7&
+  #각자 PC에 만들어놓은 Database 이름을 써야 합니다.
+    url: jdbc:mysql://localhost:3306/sharingservice?serverTimezone=UTC&characterEncoding=UTF-8
+      #mysql에 생성한 사용자 계정 정보를 써야 한다.
+    username: hojin
+    password: 1234
   thymeleaf:
     cache: false
 
-  # spring data jpa 설정
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     open-in-view: false

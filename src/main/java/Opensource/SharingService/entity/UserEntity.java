@@ -10,9 +10,18 @@ import lombok.Setter;
 @Setter
 @Table(name = "Sharing_Table")
 public class UserEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id //pk지정
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //auto_increment
     private Long id;
+
+    @Column(unique = true) // unique 제약조건 추가
+    private String memberEmail;
+
+    @Column
+    private String memberPassword;
+
+    @Column
+    private String memberName;
 
 
 
