@@ -20,7 +20,3 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
-<<<<<<< HEAD
-
-=======
->>>>>>> 09dffda9f9909a83096b88aa0d1dbcedbddf6485
