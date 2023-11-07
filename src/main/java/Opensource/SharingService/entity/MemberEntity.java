@@ -1,5 +1,6 @@
 package Opensource.SharingService.entity;
 
+import Opensource.SharingService.dto.MemberDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "Sharing_Table")
-public class UserEntity {
+public class MemberEntity {
     @Id //pk지정
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto_increment
     private Long id;
@@ -22,6 +23,14 @@ public class UserEntity {
 
     @Column
     private String memberName;
+
+    public static MemberEntity toMemberEntity(MemberDTO memberDTO) {
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setMemberEmail(memberDTO.getMemberEmail());
+        memberEntity.setMemberPassword(memberDTO.getMemberPassword());
+        memberEntity.setMemberName(memberDTO.getMemberName());
+        return memberEntity;
+    }
 
 
 
