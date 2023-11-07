@@ -36,5 +36,11 @@ out/
 ### VS Code ###
 .vscode/
 
+<<<<<<< HEAD
 ## application,yml ##
 application.yml
+=======
+
+##application.yml##
+application.yml
+>>>>>>> e2c050caa40a145387a250d43626e05b837fff50
