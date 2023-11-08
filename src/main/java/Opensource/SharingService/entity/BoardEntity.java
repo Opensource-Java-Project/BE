@@ -15,6 +15,7 @@ import java.util.List;
 public class BoardEntity extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long index;
 
     // size default - 255, nullable
