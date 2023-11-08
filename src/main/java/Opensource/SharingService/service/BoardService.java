@@ -7,10 +7,14 @@ import Opensource.SharingService.repository.BoardFileRepository;
 import Opensource.SharingService.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -41,11 +45,32 @@ public class BoardService {
             String savePath = "C:/springboot_img/" + storedFileName; // 4 C:springboot_img/1231231_내사진.jpg
             boardFile.transferTo(new File(savePath)); // 5
             BoardEntity boardEntity = BoardEntity.toSaveFileEntity(boardDTO);
-            Long saveId = boardRepository.save(boardEntity).getId();
-            BoardEntity board = boardRepository.findById(saveId).get();
+            Long saveIndex = boardRepository.save(boardEntity).getIndex();
+            BoardEntity board = boardRepository.findById(saveIndex).get();
 
-
+            BoardFileEntity boardFileEntity = BoardFileEntity.toBoardFileEntity(board, originalFilename, storedFileName);
+            boardFileRepository.save(boardFileEntity);
         }
     }
+    /*@Transactional
+    public List<BoardDTO> findAll() {
+        List<BoardEntity> boardEntityList = boardRepository.findAll();
+        List<BoardDTO> boardDTOList = new ArrayList<>();
+        for (BoardEntity boardEntity : boardEntityList) {
+            boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
+        }
+        return boardDTOList;
+    }*/
 
+    /*@Transactional
+    public BoardDTO findById(Long index) {
+        boardRepository.updateHits(index);
+    }*/
+
+    /*@Transactional
+    public BoardDTO findByBoardId(Long index) {
+        Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(index);
+        if (optionalBoardEntity.isPresent())
+    }*/
 }
+
