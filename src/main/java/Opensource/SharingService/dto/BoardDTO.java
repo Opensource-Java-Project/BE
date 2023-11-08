@@ -12,22 +12,22 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardDTO {
-    private Long id;
-    private String boardWriter;
-    private String boardPass;
-    private String boardTitle;
-    private String boardContents;
-    private int boardHits;
-    private LocalDateTime boardCreatedTime;
-    private LocalDateTime boardUpdatedTime;
+    private Long index; // 게시글 번호
+    private String boardWriter; // 작성자
+    private String boardPass; // 비밀번호
+    private String boardTitle; // 제목
+    private String boardContents; // 내용
+    private int boardHits; // 조회수
+    private LocalDateTime boardCreatedTime; // 생성일
+    private LocalDateTime boardUpdatedTime; // 수정일
 
     private MultipartFile boardFile; // save.html -> Controller 파일담는용도
     private String originalFileName;
     private String storedFileName;
     private int fileAttached;
 
-    public BoardDTO(Long id, String boardWriter, String boardTitle, String boardContents, int boardHits, LocalDateTime boardCreatedTime){
-        this.id = id;
+    public BoardDTO(Long index, String boardWriter, String boardTitle, String boardContents, int boardHits, LocalDateTime boardCreatedTime){
+        this.index = index;
         this.boardWriter = boardWriter;
         this.boardTitle = boardTitle;
         this.boardHits = boardHits;

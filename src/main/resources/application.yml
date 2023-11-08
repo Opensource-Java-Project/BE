@@ -7,9 +7,9 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
   #각자 PC에 만들어놓은 Database 이름을 써야 합니다.
-    url: jdbc:mysql://localhost:3306/sharingservice
+    url: jdbc:mysql://localhost:3306/sharing_service
       #mysql에 생성한 사용자 계정 정보를 써야 한다.
-    username: sharingservice
+    username: root
     password: dpsjwlvk7&
   thymeleaf:
     cache: false
