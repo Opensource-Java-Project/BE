@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardDTO {
-    private Long id;
+    private Long index;
     private String boardWriter;
     private String boardPass;
     private String boardTitle;
@@ -26,8 +26,8 @@ public class BoardDTO {
     private String storedFileName;
     private int fileAttached;
 
-    public BoardDTO(Long id, String boardWriter, String boardTitle, String boardContents, int boardHits, LocalDateTime boardCreatedTime){
-        this.id = id;
+    public BoardDTO(Long index, String boardWriter, String boardTitle, String boardContents, int boardHits, LocalDateTime boardCreatedTime){
+        this.index= index;
         this.boardWriter = boardWriter;
         this.boardTitle = boardTitle;
         this.boardHits = boardHits;

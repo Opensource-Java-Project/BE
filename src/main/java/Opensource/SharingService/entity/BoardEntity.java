@@ -15,7 +15,7 @@ import java.util.List;
 public class BoardEntity extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long Index;
 
     // size default - 255, nullable
     @Column(length = 20, nullable = false)
@@ -51,7 +51,7 @@ public class BoardEntity extends BaseEntity{
     }
     public static BoardEntity toUpdateEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
-        boardEntity.setId(boardDTO.getId());
+        boardEntity.setIndex(boardDTO.getIndex());
         boardEntity.setBoardWriter(boardDTO.getBoardWriter());
         boardEntity.setBoardPass(boardDTO.getBoardPass());
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
