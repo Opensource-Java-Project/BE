@@ -22,11 +22,11 @@ public class BoardDTO {
     private LocalDateTime boardUpdatedTime; // 수정일
 
     private MultipartFile boardFile; // save.html -> Controller 파일담는용도
-    private String originalFileName;
-    private String storedFileName;
-    private int fileAttached;
+    private String originalFileName; // 원본 파일명
+    private String storedFileName; // 서버 저장용 파일 이름
+    private int fileAttached; // 파일 첨부여부 (1 or 0)
 
-    public BoardDTO(Long index, String boardWriter, String boardTitle, String boardContents, int boardHits, LocalDateTime boardCreatedTime){
+    public BoardDTO(Long index, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreatedTime){
         this.index = index;
         this.boardWriter = boardWriter;
         this.boardTitle = boardTitle;
@@ -47,7 +47,8 @@ public class BoardDTO {
             boardDTO.setFileAttached(boardEntity.getFileAttached());
         } else {
             boardDTO.setFileAttached(boardEntity.getFileAttached());
-
+            boardDTO.setOriginalFileName(boardEntity.getBoardFileEntityList().get(0).getOriginalFileName());
+            boardDTO.setStoredFileName(boardEntity.getBoardFileEntityList().get(0).getStoredFileName());
         }
         return boardDTO;
     }

@@ -6,6 +6,10 @@ import Opensource.SharingService.entity.BoardFileEntity;
 import Opensource.SharingService.repository.BoardFileRepository;
 import Opensource.SharingService.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -52,7 +56,7 @@ public class BoardService {
             boardFileRepository.save(boardFileEntity);
         }
     }
-    /*@Transactional
+    @Transactional
     public List<BoardDTO> findAll() {
         List<BoardEntity> boardEntityList = boardRepository.findAll();
         List<BoardDTO> boardDTOList = new ArrayList<>();
@@ -60,17 +64,54 @@ public class BoardService {
             boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
         }
         return boardDTOList;
-    }*/
+    }
 
-    /*@Transactional
-    public BoardDTO findById(Long index) {
+    @Transactional
+    public BoardDTO updateHits(Long index) {
         boardRepository.updateHits(index);
-    }*/
+        return findById(index);
+    }
 
-    /*@Transactional
-    public BoardDTO findByBoardId(Long index) {
+    @Transactional
+    public BoardDTO findById(Long index) {
         Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(index);
-        if (optionalBoardEntity.isPresent())
-    }*/
+        if (optionalBoardEntity.isPresent()){
+            BoardEntity boardEntity = optionalBoardEntity.get();
+            BoardDTO boardDTO = BoardDTO.toBoardDTO(boardEntity);
+            return boardDTO;
+        } else {
+            return null;
+        }
+    }
+    public BoardDTO update(BoardDTO boardDTO){
+        BoardEntity boardEntity = BoardEntity.toUpdateEntity(boardDTO);
+        boardRepository.save(boardEntity);
+        return findById(boardDTO.getIndex());
+    } // 수정 처리
+
+    public void delete(Long index){
+        boardRepository.deleteById(index);
+    } // 삭제 처리
+
+    public Page<BoardDTO> paging(Pageable pageable) {
+        int page = pageable.getPageNumber() - 1; // 페이지 번호
+        int pageLimit = 5; // 페이지 당 게시물 수
+        Page<BoardEntity> boardEntities =
+                boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "index")));
+
+        System.out.println("boardEntities.getContent() = " + boardEntities.getContent()); // 요청 페이지에 해당하는 글
+        System.out.println("boardEntities.getTotalElements() = " + boardEntities.getTotalElements()); // 전체 글갯수
+        System.out.println("boardEntities.getNumber() = " + boardEntities.getNumber()); // DB로 요청한 페이지 번호
+        System.out.println("boardEntities.getTotalPages() = " + boardEntities.getTotalPages()); // 전체 페이지 갯수
+        System.out.println("boardEntities.getSize() = " + boardEntities.getSize()); // 한 페이지에 보여지는 글 갯수
+        System.out.println("boardEntities.hasPrevious() = " + boardEntities.hasPrevious()); // 이전 페이지 존재 여부
+        System.out.println("boardEntities.isFirst() = " + boardEntities.isFirst()); // 첫 페이지 여부
+        System.out.println("boardEntities.isLast() = " + boardEntities.isLast()); // 마지막 페이지 여부
+
+        // 목록: id, writer, title, hits, createdTime
+        Page<BoardDTO> boardDTOS = boardEntities.map(board -> new BoardDTO(board.getIndex(), board.getBoardWriter(), board.getBoardTitle(), board.getBoardHits(), board.getCreatedTime()));
+
+        return boardDTOS;
+    }
 }
 
