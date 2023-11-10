@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardDTO {
+
     private Long index; // 게시글 번호
     private String boardWriter; // 작성자
     private String boardPass; // 비밀번호
@@ -25,6 +26,7 @@ public class BoardDTO {
     private String originalFileName; // 원본 파일명
     private String storedFileName; // 서버 저장용 파일 이름
     private int fileAttached; // 파일 첨부여부 (1 or 0)
+
 
     public BoardDTO(Long index, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreatedTime){
         this.index = index;
