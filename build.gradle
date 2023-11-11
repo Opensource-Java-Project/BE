@@ -28,6 +28,7 @@ dependencies {
 
 	implementation 'mysql:mysql-connector-java:8.0.33'
 	compileOnly 'org.projectlombok:lombok'
+	implementation 'javax.persistence:javax.persistence-api:2.2'
 
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
