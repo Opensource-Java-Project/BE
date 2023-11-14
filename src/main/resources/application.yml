@@ -11,8 +11,9 @@ spring:
       #mysql에 생성한 사용자 계정 정보를 써야 한다.
 
 
-    username: 
-    password: g
+    username:
+    password:
+
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
