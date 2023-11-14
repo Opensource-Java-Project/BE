@@ -32,7 +32,7 @@ public class CommentService {
 
     public List<CommentDTO> findAll(Long boardIndex) {
         BoardEntity boardEntity = boardRepository.findById(boardIndex).get();
-        List<CommentEntity> commentEntityList = commentRepository.findAllByBoardEntityOrderByIdDesc(boardEntity);
+        List<CommentEntity> commentEntityList = commentRepository.findAllByBoardEntityOrderByIndexDesc(boardEntity);
         List<CommentDTO> commentDTOList = new ArrayList<>();
         for (CommentEntity commentEntity : commentEntityList) {
             CommentDTO commentDTO = CommentDTO.toCommentDTO(commentEntity, boardIndex);
