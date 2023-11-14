@@ -4,7 +4,6 @@ import Opensource.SharingService.dto.MemberDTO;
 import Opensource.SharingService.entity.MemberEntity;
 import Opensource.SharingService.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -52,6 +51,9 @@ public class MemberService {
     } else {
       // 조회 결과가 없다(해당 이메일을 가진 회원이 없다)
       return null;
+
+
+
     }
   }
 }
