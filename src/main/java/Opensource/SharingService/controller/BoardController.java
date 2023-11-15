@@ -18,12 +18,12 @@ public class BoardController {
     private final BoardService boardService;
 
 
-    @GetMapping("/save")
+    @GetMapping("board/save")
     public String saveForm() {
         return "save";
     }
 
-    @PostMapping("/save")
+    @PostMapping("board/save")
     public String save(@ModelAttribute BoardDTO boardDTO) throws IOException{
         System.out.println("boardDTO = " + boardDTO);
         boardService.save(boardDTO);
