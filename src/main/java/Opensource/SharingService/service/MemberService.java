@@ -3,7 +3,6 @@ package Opensource.SharingService.service;
 import Opensource.SharingService.dto.MemberDTO;
 import Opensource.SharingService.entity.MemberEntity;
 import Opensource.SharingService.repository.MemberRepository;
-import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,7 @@ public class MemberService {
   // 중복확인 메서드
   public boolean isEmailDuplicated(String memberEmail){
     Optional<MemberEntity> existingMember = memberRepository.findByMemberEmail(memberEmail);
-    return existingMember != null;
+    return existingMember.isPresent();
   }
 //
 
@@ -38,10 +37,10 @@ public class MemberService {
   }
 
   public MemberDTO login(MemberDTO memberDTO) {
-        /*
-            1. 회원이 입력한 이메일로 DB에서 조회를 함
-            2. DB에서 조회한 비밀번호와 사용자가 입력한 비밀번호가 일치하는지 판단
-         */
+    /*
+        1. 회원이 입력한 이메일로 DB에서 조회를 함
+        2. DB에서 조회한 비밀번호와 사용자가 입력한 비밀번호가 일치하는지 판단
+    */
     Optional<MemberEntity> byMemberEmail = memberRepository.findByMemberEmail(memberDTO.getMemberEmail());
     if (byMemberEmail.isPresent()) {
       // 조회 결과가 있다(해당 이메일을 가진 회원 정보가 있다)
@@ -51,25 +50,22 @@ public class MemberService {
         // entity -> dto 변환 후 리턴
         MemberDTO dto = MemberDTO.toMemberDTO(memberEntity);
 
-        //로그인 성공 시 토큰 생성 및 설정
+        // 로그인 성공 시 토큰 생성 및 설정
         String token = AuthService.generateToken(memberDTO.getMemberEmail());
         dto.setToken(token);
         return dto;
       } else {
-        // 비밀번호 불일치(로그인실패)
+        // 비밀번호 불일치(로그인 실패)
         return null;
       }
     } else {
       // 조회 결과가 없다(해당 이메일을 가진 회원이 없다)
       return null;
-
-
-
     }
   }
 
   // 랜덤 토큰 생성 메서드
-  public class KeyGenerator{
+  public static class KeyGenerator{
 
     public static String generateRandomKey(){
       SecureRandom secureRandom = new SecureRandom();
@@ -79,9 +75,8 @@ public class MemberService {
     }
   }
 
-  public class AuthService {
-
-    private  static final String SECRET_KEY =  KeyGenerator.generateRandomKey();
+  public static class AuthService {
+    private static final String SECRET_KEY = KeyGenerator.generateRandomKey();
 
     public static String generateToken(String memberEmail) {
       Date now = new Date();
@@ -94,7 +89,6 @@ public class MemberService {
           .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
           .compact();
     }
-
   }
 
 
