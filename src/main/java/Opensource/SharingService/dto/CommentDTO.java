@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 public class CommentDTO {
-    private Long index;
+    private Long boardIndex;
     private String commentWriter;
     private String commentContents;
     private Long boardId;
@@ -18,7 +18,7 @@ public class CommentDTO {
 
     public static CommentDTO toCommentDTO(CommentEntity commentEntity, Long boardId) {
         CommentDTO commentDTO = new CommentDTO();
-        commentDTO.setIndex(commentEntity.getIndex());
+        commentDTO.setBoardIndex(commentEntity.getCommentIndex());
         commentDTO.setCommentWriter(commentEntity.getCommentWriter());
         commentDTO.setCommentContents(commentEntity.getCommentContents());
         commentDTO.setCommentCreatedTime(commentEntity.getCreatedTime());

@@ -29,6 +29,4 @@ public class BoardController {
         boardService.save(boardDTO);
         return "index";
     }
-
-
 }

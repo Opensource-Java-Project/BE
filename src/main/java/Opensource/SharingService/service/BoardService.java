@@ -49,7 +49,7 @@ public class BoardService {
             String savePath = "C:/springboot_img/" + storedFileName; // 4 C:springboot_img/1231231_내사진.jpg
             boardFile.transferTo(new File(savePath)); // 5
             BoardEntity boardEntity = BoardEntity.toSaveFileEntity(boardDTO);
-            Long saveIndex = boardRepository.save(boardEntity).getIndex();
+            Long saveIndex = boardRepository.save(boardEntity).getBoardIndex();
             BoardEntity board = boardRepository.findById(saveIndex).get();
 
             BoardFileEntity boardFileEntity = BoardFileEntity.toBoardFileEntity(board, originalFilename, storedFileName);
@@ -67,14 +67,14 @@ public class BoardService {
     }
 
     @Transactional
-    public BoardDTO updateHits(Long index) {
-        boardRepository.updateHits(index);
-        return findById(index);
+    public BoardDTO updateHits(Long hitsIndex) {
+        boardRepository.updateHits(hitsIndex);
+        return findById(hitsIndex);
     }
 
     @Transactional
-    public BoardDTO findById(Long index) {
-        Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(index);
+    public BoardDTO findById(Long findIndex) {
+        Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(findIndex);
         if (optionalBoardEntity.isPresent()){
             BoardEntity boardEntity = optionalBoardEntity.get();
             BoardDTO boardDTO = BoardDTO.toBoardDTO(boardEntity);
@@ -86,11 +86,11 @@ public class BoardService {
     public BoardDTO update(BoardDTO boardDTO){
         BoardEntity boardEntity = BoardEntity.toUpdateEntity(boardDTO);
         boardRepository.save(boardEntity);
-        return findById(boardDTO.getIndex());
+        return findById(boardDTO.getBoardIndex());
     } // 수정 처리
 
-    public void delete(Long index){
-        boardRepository.deleteById(index);
+    public void delete(Long deleteIndex){
+        boardRepository.deleteById(deleteIndex);
     } // 삭제 처리
 
     public Page<BoardDTO> paging(Pageable pageable) {
@@ -109,7 +109,7 @@ public class BoardService {
         System.out.println("boardEntities.isLast() = " + boardEntities.isLast()); // 마지막 페이지 여부
 
         // 목록: id, writer, title, hits, createdTime
-        Page<BoardDTO> boardDTOS = boardEntities.map(board -> new BoardDTO(board.getIndex(), board.getBoardWriter(), board.getBoardTitle(), board.getBoardHits(), board.getCreatedTime()));
+        Page<BoardDTO> boardDTOS = boardEntities.map(board -> new BoardDTO(board.getBoardIndex(), board.getBoardWriter(), board.getBoardTitle(), board.getBoardHits(), board.getCreatedTime()));
 
         return boardDTOS;
     }
