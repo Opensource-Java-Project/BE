@@ -24,7 +24,7 @@ public class MemberController {
     if (isDuplicate) {
       return "T"; // 중복된 이메일이 있음
     } else {
-      return "login";
+      return "F";
     }
   }
   //
@@ -53,7 +53,7 @@ public class MemberController {
     MemberDTO loginResult = memberService.login(memberDTO);
     if (loginResult != null) {
       // login 성공
-      session.setAttribute("loginEmail", loginResult.getMemberEmail());
+      session.setAttribute("loggedInUser", loginResult);
       return "redirect:/main";
     } else {
       // login 실패

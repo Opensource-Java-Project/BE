@@ -15,7 +15,7 @@ public class MemberDTO {
   private  String memberEmail;
   private  String memberPassword;
   private String memberName;
-  private String token;
+  private String Session_Token;
 
   public static MemberDTO toMemberDTO(MemberEntity memberEntity) {
     MemberDTO memberDTO = new MemberDTO();
@@ -23,7 +23,7 @@ public class MemberDTO {
     memberDTO.setMemberEmail(memberEntity.getMemberEmail());
     memberDTO.setMemberPassword(memberEntity.getMemberPassword());
     memberDTO.setMemberName(memberEntity.getMemberName());
-    memberDTO.setToken(memberEntity.getToken());
+    memberDTO.setSession_Token(memberEntity.getSession_Token());
     return memberDTO;
 
   }
