@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class BoardDTO {
 
-    private Long index; // 게시글 번호
+    private Long boardIndex; // 게시글 번호
     private String boardWriter; // 작성자
     private String boardPass; // 비밀번호
     private String boardTitle; // 제목
@@ -28,8 +28,8 @@ public class BoardDTO {
     private int fileAttached; // 파일 첨부여부 (1 or 0)
 
 
-    public BoardDTO(Long index, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreatedTime){
-        this.index = index;
+    public BoardDTO(Long boardIndex, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreatedTime){
+        this.boardIndex = boardIndex;
         this.boardWriter = boardWriter;
         this.boardTitle = boardTitle;
         this.boardHits = boardHits;

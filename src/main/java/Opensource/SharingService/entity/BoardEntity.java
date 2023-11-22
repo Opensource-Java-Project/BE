@@ -16,7 +16,7 @@ public class BoardEntity extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Long index;
+    private Long boardIndex;
 
     // size default - 255, nullable
     @Column(length = 20, nullable = false)
@@ -52,7 +52,7 @@ public class BoardEntity extends BaseEntity{
     }
     public static BoardEntity toUpdateEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
-        boardEntity.setIndex(boardDTO.getIndex());
+        boardEntity.setBoardIndex(boardDTO.getBoardIndex());
         boardEntity.setBoardWriter(boardDTO.getBoardWriter());
         boardEntity.setBoardPass(boardDTO.getBoardPass());
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());

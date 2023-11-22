@@ -13,7 +13,7 @@ import lombok.Setter;
 public class CommentEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long index;
+    private Long commentIndex;
 
     @Column(length = 20, nullable = false)
     private String commentWriter;
