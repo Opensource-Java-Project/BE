@@ -12,6 +12,7 @@ import lombok.Setter;
 public class BoardFileEntity extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long boardFileIndex;
 
     @Column
