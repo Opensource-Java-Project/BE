@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "board_table")
 public class BoardEntity extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
 
     private Long boardIndex;
 
@@ -23,7 +23,7 @@ public class BoardEntity extends BaseEntity{
     private String boardWriter;
 
     @Column
-    private String boardPass; //
+    private String boardPass;
 
     @Column String boardTitle;
 
