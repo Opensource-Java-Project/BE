@@ -15,7 +15,12 @@ public class MemberDTO {
   private  String memberEmail;
   private  String memberPassword;
   private String memberName;
-  private String Session_Token;
+  private String session_Token;
+
+  //추가 한 부분
+  public String getSession_Token() {
+    return session_Token;
+  }
 
   public static MemberDTO toMemberDTO(MemberEntity memberEntity) {
     MemberDTO memberDTO = new MemberDTO();
