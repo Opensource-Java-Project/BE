@@ -77,9 +77,22 @@ public class MemberController {
     }
   }
 
+
   @GetMapping("/logout")
   public String logout(HttpSession session) {
-    session.removeAttribute("loggedInUser");
+    MemberDTO loggedInUser = (MemberDTO) session.getAttribute("loggedInUser");
+
+    if (loggedInUser != null) {
+      // 세션에서 사용자 정보 제거
+      session.removeAttribute("loggedInUser");
+
+      // 세션 토큰이 존재하면 해당 토큰을 이용해 로그아웃 처리
+      String sessionToken = loggedInUser.getSession_Token();
+      if (sessionToken != null && !sessionToken.isEmpty()) {
+        memberService.logoutByToken(sessionToken);
+      }
+    }
+
     return "redirect:/member/login"; // 로그아웃 후 이동할 페이지
   }
 
