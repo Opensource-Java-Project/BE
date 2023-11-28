@@ -57,7 +57,7 @@ public class MemberService {
         // 로그인 성공 시 토큰 생성 및 설정
         String token = AuthService.generateToken(memberDTO.getMemberEmail());
 
-        byMemberEmail.get().setSession_Token(token);// 현욱이형 추가
+        byMemberEmail.get().setSession_Token(token);
         memberRepository.save(byMemberEmail.get()); // 변경 사항을 DB에 반영
 
 
