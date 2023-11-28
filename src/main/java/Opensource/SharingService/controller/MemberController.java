@@ -4,6 +4,8 @@ import Opensource.SharingService.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,13 +20,13 @@ public class MemberController {
   // 중복확인 메서드
   @PostMapping("/checkDuplicateEmail")
   @ResponseBody
-  public String checkDuplicateEmail(@RequestParam String email) {
+  public ResponseEntity<String> checkDuplicateEmail(@RequestParam String email) {
     boolean isDuplicate = memberService.isEmailDuplicated(email);
 
     if (isDuplicate) {
-      return "T"; // 중복된 이메일이 있음
+      return ResponseEntity.status(409).body("중복된 이메일 있음"); // 중복된 이메일이 있음
     } else {
-      return "F";
+      return ResponseEntity.status(200).body("중복된 이메일 없음");
     }
   }
   //
