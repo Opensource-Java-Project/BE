@@ -16,7 +16,7 @@ public class MemberController {
   // 회원 가입 페이지 출력 요청
 
   // 중복확인 메서드
-  @PostMapping("/checkDuplicateEmail")
+  @PostMapping("/register")
   @ResponseBody
   public String checkDuplicateEmail(@RequestParam String email) {
     boolean isDuplicate = memberService.isEmailDuplicated(email);
@@ -76,6 +76,7 @@ public class MemberController {
   }
 
 
+/*
   @GetMapping("/logout")
   public String logout(HttpSession session) {
     MemberDTO loggedInUser = (MemberDTO) session.getAttribute("loggedInUser");
@@ -93,6 +94,7 @@ public class MemberController {
 
     return "redirect:/member/login"; // 로그아웃 후 이동할 페이지
   }
+*/
 
 
 }
