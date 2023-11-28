@@ -5,7 +5,6 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -64,11 +63,10 @@ public class MemberController {
 
   //추가
   @GetMapping("/main")
-  public String mainPage(HttpSession session, Model model) {
+  public String mainPage(HttpSession session) {
     MemberDTO loggedInUser = (MemberDTO) session.getAttribute("loggedInUser");
 
     if (loggedInUser != null) {
-      model.addAttribute("token",loggedInUser.getSession_Token()); //"token"이라는 변수에 만들어서 저장한 토큰 값 넣기
       // 로그인 상태
       return "main";
     } else {

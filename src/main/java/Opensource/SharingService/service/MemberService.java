@@ -43,6 +43,7 @@ public class MemberService {
         2. DB에서 조회한 비밀번호와 사용자가 입력한 비밀번호가 일치하는지 판단
     */
     Optional<MemberEntity> byMemberEmail = memberRepository.findByMemberEmail(memberDTO.getMemberEmail());
+    System.out.println(byMemberEmail);
 
     if (byMemberEmail.isPresent()) {
       // 조회 결과가 있다(해당 이메일을 가진 회원 정보가 있다)
@@ -51,13 +52,16 @@ public class MemberService {
         // 비밀번호 일치
         // entity -> dto 변환 후 리턴
         MemberDTO dto = MemberDTO.toMemberDTO(memberEntity);
+        System.out.println("로그인 성공");
 
         // 로그인 성공 시 토큰 생성 및 설정
         String token = AuthService.generateToken(memberDTO.getMemberEmail());
-        System.out.println("token = " + token);
 
         byMemberEmail.get().setSession_Token(token);// 현욱이형 추가
         memberRepository.save(byMemberEmail.get()); // 변경 사항을 DB에 반영
+
+
+
 
         dto.setSession_Token(token);
 
@@ -83,7 +87,7 @@ public class MemberService {
     }
   }
 
-  //
+  //g
   public static class AuthService {
     private static final String SECRET_KEY = KeyGenerator.generateRandomKey();
 
