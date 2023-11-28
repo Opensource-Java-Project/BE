@@ -18,10 +18,10 @@ public class MemberController {
   // 회원 가입 페이지 출력 요청
 
   // 중복확인 메서드
-  @PostMapping("/checkDuplicateEmail")
+  @PostMapping("/checkDuplicatedEmail")
   @ResponseBody
-  public ResponseEntity<String> checkDuplicateEmail(@RequestParam String email) {
-    boolean isDuplicate = memberService.isEmailDuplicated(email);
+  public ResponseEntity<String> checkDuplicateEmail(@RequestBody String memberEmail) {
+    boolean isDuplicate = memberService.isEmailDuplicated(memberEmail);
 
     if (isDuplicate) {
       return ResponseEntity.status(409).body("중복된 이메일 있음"); // 중복된 이메일이 있음
@@ -29,7 +29,7 @@ public class MemberController {
       return ResponseEntity.status(200).body("중복된 이메일 없음");
     }
   }
-  //
+
 
 
   @GetMapping("/member/save")
@@ -77,6 +77,7 @@ public class MemberController {
     }
   }
 
+
 /*
   @GetMapping("/logout")
   public String logout(HttpSession session) {
@@ -95,6 +96,7 @@ public class MemberController {
 
     return "redirect:/member/login"; // 로그아웃 후 이동할 페이지
   }
+*/
 
 */
 }

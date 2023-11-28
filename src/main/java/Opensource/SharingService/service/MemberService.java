@@ -104,6 +104,7 @@ public class MemberService {
     }
   }
 /*
+
   // 로그아웃 메서드
   // 토큰을 받아와서 해당 토큰을 가진 사용자의 세션 토큰을 무효화하는 메서드
   public void logoutByToken(String token) {
@@ -131,6 +132,7 @@ public class MemberService {
     return claims.getSubject();
   }
 */
+
 
 
 }
