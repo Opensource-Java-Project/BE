@@ -77,7 +77,7 @@ public class MemberController {
     }
   }
 
-
+/*
   @GetMapping("/logout")
   public String logout(HttpSession session) {
     MemberDTO loggedInUser = (MemberDTO) session.getAttribute("loggedInUser");
@@ -96,5 +96,5 @@ public class MemberController {
     return "redirect:/member/login"; // 로그아웃 후 이동할 페이지
   }
 
-
+*/
 }

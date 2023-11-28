@@ -57,7 +57,7 @@ public class MemberService {
         // 로그인 성공 시 토큰 생성 및 설정
         String token = AuthService.generateToken(memberDTO.getMemberEmail());
 
-        byMemberEmail.get().setSession_Token(token);// 현욱이형 추가
+        byMemberEmail.get().setSession_Token(token);
         memberRepository.save(byMemberEmail.get()); // 변경 사항을 DB에 반영
 
 
@@ -103,7 +103,7 @@ public class MemberService {
           .compact();
     }
   }
-
+/*
   // 로그아웃 메서드
   // 토큰을 받아와서 해당 토큰을 가진 사용자의 세션 토큰을 무효화하는 메서드
   public void logoutByToken(String token) {
@@ -130,7 +130,7 @@ public class MemberService {
     Claims claims = Jwts.parser().setSigningKey(AuthService.SECRET_KEY).parseClaimsJws(token).getBody();
     return claims.getSubject();
   }
-
+*/
 
 
 }
