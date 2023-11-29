@@ -1,4 +1,5 @@
 package Opensource.SharingService.controller;
+import Opensource.SharingService.dto.LoginResponseDTO;
 import Opensource.SharingService.dto.MemberDTO;
 import Opensource.SharingService.dto.MemberEmailDTO;
 import Opensource.SharingService.service.MemberService;
@@ -10,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @Slf4j
 @RequiredArgsConstructor
 public class MemberController {
@@ -34,7 +35,6 @@ public class MemberController {
   }
 
 
-
   @GetMapping("/member/save")
   public String saveForm() {
     return "save";
@@ -45,7 +45,7 @@ public class MemberController {
     System.out.println("MemberController.save");
     System.out.println("memberDTO = " + memberDTO);
     memberService.save(memberDTO);
-    return "login";
+    return ResponseEntity.status(200).body("회원가입 성공").toString();
   }
 
   @GetMapping("/register")
@@ -53,16 +53,19 @@ public class MemberController {
     return "login";
   }
 
+
   @PostMapping("/login")
-  public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session) {
+  public ResponseEntity<LoginResponseDTO> login(@ModelAttribute MemberDTO memberDTO, HttpSession session) {
     MemberDTO loginResult = memberService.login(memberDTO);
     if (loginResult != null) {
       // login 성공
       session.setAttribute("loggedInUser", loginResult);
-      return "redirect:/main";
+      // LoginResponseDTO를 사용하여 JSON 응답 생성
+      LoginResponseDTO responseDTO = new LoginResponseDTO(true, loginResult.getSession_Token(), loginResult.getMemberEmail());
+      return ResponseEntity.ok(responseDTO);
     } else {
-      // login 실패
-      return "login";
+      // 로그인 실패 시 응답
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
   }
 
@@ -76,7 +79,7 @@ public class MemberController {
       return "main";
     } else {
       // 로그인되어 있지 않은 경우 로그인 페이지로 리다이렉트
-      return "redirect:/member/login";
+      return "login";
     }
   }
 
