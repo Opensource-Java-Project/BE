@@ -1,5 +1,6 @@
 package Opensource.SharingService.controller;
 import Opensource.SharingService.dto.MemberDTO;
+import Opensource.SharingService.dto.MemberEmailDTO;
 import Opensource.SharingService.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,10 @@ public class MemberController {
   // 중복확인 메서드
   @PostMapping("/checkDuplicatedEmail")
   @ResponseBody
-  public ResponseEntity<String> checkDuplicateEmail(@RequestBody String memberEmail) {
+  public ResponseEntity<String> checkDuplicateEmail(@RequestBody MemberEmailDTO memberEmailDTO) {
+    String memberEmail = memberEmailDTO.getMemberEmail();
     boolean isDuplicate = memberService.isEmailDuplicated(memberEmail);
+    System.out.println(isDuplicate);
 
     if (isDuplicate) {
       return ResponseEntity.status(409).body("중복된 이메일 있음"); // 중복된 이메일이 있음
@@ -98,5 +101,4 @@ public class MemberController {
   }
 */
 
-*/
 }

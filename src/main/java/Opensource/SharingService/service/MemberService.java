@@ -23,8 +23,8 @@ public class MemberService {
 
   // 중복확인 메서드
   public boolean isEmailDuplicated(String memberEmail){
-    Optional<MemberEntity> existingMember = memberRepository.findByMemberEmail(memberEmail);
-    return existingMember.isPresent();
+    return memberRepository.findByMemberEmail(memberEmail).isPresent();
+
   }
 //
 
