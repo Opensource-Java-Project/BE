@@ -17,7 +17,7 @@ public class MemberEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto_increment
     private Long id;
 
-    @Column(unique = true,nullable = false) // unique 제약조건 추가
+    @Column(unique = true, nullable = false) // unique 제약조건 추가
     private String memberEmail;
 
     @Column(nullable = false)
