@@ -14,7 +14,7 @@ package Opensource.SharingService.entity;
 @Table(name = "board_table")
 public class BoardEntity extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
+    @GeneratedValue(strategy = GenerationType.AUTO) // auto_increment
 
     private Long boardIndex;
 

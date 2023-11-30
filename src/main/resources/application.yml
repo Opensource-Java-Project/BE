@@ -2,28 +2,20 @@
 server:
   port: 8080
 
+# database 연동 설정
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-  #각자 PC에 만들어놓은 Database 이름을 써야 합니다.
     url: jdbc:mysql://localhost:3306/sharingservice
-      #mysql에 생성한 사용자 계정 정보를 써야 한다.
-
-
     username:
     password:
+  thymeleaf:
+    cache: false
 
-  flyway:
-    baselineOnMigrate: true
-    locations: classpath:db/migration
-
-
-
-
+  # spring data jpa 설정
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: false
     show-sql: true
     hibernate:
-      hbm2ddl.auto: update # 새로 추가
-
+      ddl-auto: update
