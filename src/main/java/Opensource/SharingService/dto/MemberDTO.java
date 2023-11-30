@@ -3,7 +3,6 @@ package Opensource.SharingService.dto;
 // 회원정보의 필요한 내용들을 필드로 정의 .
 import Opensource.SharingService.entity.MemberEntity;
 import lombok.*;
-import org.h2.command.Token;
 
 @Getter
 @Setter
