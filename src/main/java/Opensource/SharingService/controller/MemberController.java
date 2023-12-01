@@ -35,20 +35,21 @@ public class MemberController {
   }
 
 
-  @GetMapping("/member/save")
+  @GetMapping("/register")
   public String saveForm() {
     return "save";
   }
 
+  //프론트에서 요청이 제대로 안들어 온다면 반환방식 검토할것 ex) @RequestBody 인지 @RequestParam인지
   @PostMapping("/register")
-  public String save(@ModelAttribute MemberDTO memberDTO) {
+  public ResponseEntity<String> save(@RequestBody MemberDTO memberDTO) {
     System.out.println("MemberController.save");
     System.out.println("memberDTO = " + memberDTO);
     memberService.save(memberDTO);
-    return ResponseEntity.status(200).body("회원가입 성공").toString();
+    return ResponseEntity.status(200).body("회원가입 성공");
   }
 
-  @GetMapping("/register")
+  @GetMapping("/login")
   public String loginFrom() {
     return "login";
   }
@@ -84,7 +85,7 @@ public class MemberController {
   }
 
 
-/*
+//로그아웃
   @GetMapping("/logout")
   public String logout(HttpSession session) {
     MemberDTO loggedInUser = (MemberDTO) session.getAttribute("loggedInUser");
@@ -102,6 +103,6 @@ public class MemberController {
 
     return "redirect:/member/login"; // 로그아웃 후 이동할 페이지
   }
-*/
+
 
 }
