@@ -27,14 +27,17 @@ public class MemberEntity {
     private String memberName;
 
     @Column
-    private String Session_Token;
+    private String sessionToken;
+    public boolean hasSession_Token() {
+        return this.sessionToken != null && !this.sessionToken.isEmpty();
+    }
 
     public static MemberEntity toMemberEntity(MemberDTO memberDTO) {
         MemberEntity memberEntity = new MemberEntity();
         memberEntity.setMemberEmail(memberDTO.getMemberEmail());
         memberEntity.setMemberPassword(memberDTO.getMemberPassword());
         memberEntity.setMemberName(memberDTO.getMemberName());
-        memberEntity.setSession_Token(memberDTO.getSession_Token());
+        memberEntity.setSessionToken(memberDTO.getSessionToken());
         return memberEntity;
     }
 

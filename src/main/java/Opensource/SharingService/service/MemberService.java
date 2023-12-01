@@ -7,6 +7,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -27,6 +28,14 @@ public class MemberService {
 
   }
 //
+
+  public boolean isValidToken(String token) {
+    // MemberEntity에서 해당 토큰을 가진 회원을 찾음
+    Optional<MemberEntity> member = memberRepository.findBySessionToken(token);
+
+    // 회원이 존재하고 토큰이 비어있지 않으면 유효한 토큰으로 간주
+    return member.map(MemberEntity::hasSession_Token).orElse(false);
+  }
 
 
   public void save(MemberDTO memberDTO) {
@@ -57,13 +66,13 @@ public class MemberService {
         // 로그인 성공 시 토큰 생성 및 설정
         String token = AuthService.generateToken(memberDTO.getMemberEmail());
 
-        byMemberEmail.get().setSession_Token(token);
+        byMemberEmail.get().setSessionToken(token);
         memberRepository.save(byMemberEmail.get()); // 변경 사항을 DB에 반영
 
 
 
 
-        dto.setSession_Token(token);
+        dto.setSessionToken(token);
 
         return dto;
       } else {
@@ -93,7 +102,7 @@ public class MemberService {
 
     public static String generateToken(String memberEmail) {
       Date now = new Date();
-      Date expiryData = new Date(now.getTime() + 100000); // 100000초 동안 유효
+      Date expiryData = new Date(now.getTime() + 5500000); // 100000초 동안 유효
 
       return Jwts.builder()
           .setSubject(memberEmail)
@@ -119,11 +128,13 @@ public class MemberService {
       MemberEntity memberEntity = optionalMember.get();
 
       // 세션 토큰을 null로 설정하여 무효화
-      memberEntity.setSession_Token(null);
+      memberEntity.setSessionToken(null);
 
       // 변경된 회원 정보를 데이터베이스에 저장
       memberRepository.save(memberEntity);
+      System.out.println("토큰 값 null 설정 완료");
     }
+    System.out.println("로그아웃 성공~");
   }
 
   // 토큰에서 이메일을 추출하는 메서드
