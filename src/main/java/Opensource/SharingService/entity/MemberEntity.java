@@ -23,7 +23,7 @@ public class MemberEntity {
     @Column(nullable = false)
     private String memberPassword;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String memberName;
 
     @Column
