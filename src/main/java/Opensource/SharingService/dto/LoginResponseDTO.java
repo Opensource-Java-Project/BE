@@ -22,7 +22,7 @@ public class LoginResponseDTO {
     public static LoginResponseDTO fromMemberEntity(MemberEntity memberEntity) {
         return new LoginResponseDTO(
             true,  // 로그인 성공한 경우 auth는 true로 설정
-            memberEntity.getSession_Token(),
+            memberEntity.getSessionToken(),
             memberEntity.getMemberEmail()
         );
     }

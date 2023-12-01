@@ -2,6 +2,8 @@ package Opensource.SharingService.controller;
 import Opensource.SharingService.dto.LoginResponseDTO;
 import Opensource.SharingService.dto.MemberDTO;
 import Opensource.SharingService.dto.MemberEmailDTO;
+import Opensource.SharingService.entity.MemberEntity;
+import Opensource.SharingService.repository.MemberRepository;
 import Opensource.SharingService.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -11,12 +13,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @Slf4j
 @RequiredArgsConstructor
 public class MemberController {
   //생성자 주입
   private final MemberService memberService;
+  private final MemberRepository memberRepository;
   // 회원 가입 페이지 출력 요청
 
   // 중복확인 메서드
@@ -62,7 +67,7 @@ public class MemberController {
       // login 성공
       session.setAttribute("loggedInUser", loginResult);
       // LoginResponseDTO를 사용하여 JSON 응답 생성
-      LoginResponseDTO responseDTO = new LoginResponseDTO(true, loginResult.getSession_Token(), loginResult.getMemberEmail());
+      LoginResponseDTO responseDTO = new LoginResponseDTO(true, loginResult.getSessionToken(), loginResult.getMemberEmail());
       return ResponseEntity.ok(responseDTO);
     } else {
       // 로그인 실패 시 응답
@@ -86,23 +91,35 @@ public class MemberController {
 
 
 //로그아웃
-  @GetMapping("/logout")
-  public String logout(HttpSession session) {
-    MemberDTO loggedInUser = (MemberDTO) session.getAttribute("loggedInUser");
+@PostMapping("/logout")
+public ResponseEntity<String> logout(@RequestHeader("Authorization") String authorizationHeader) {
+  // Authorization 헤더에서 토큰 추출
+  String token = extractToken(authorizationHeader);
 
-    if (loggedInUser != null) {
-      // 세션에서 사용자 정보 제거
-      session.removeAttribute("loggedInUser");
-
-      // 세션 토큰이 존재하면 해당 토큰을 이용해 로그아웃 처리
-      String sessionToken = loggedInUser.getSession_Token();
-      if (sessionToken != null && !sessionToken.isEmpty()) {
-        memberService.logoutByToken(sessionToken);
-      }
-    }
-
-    return "redirect:/member/login"; // 로그아웃 후 이동할 페이지
+  // 토큰 검증
+  if (isValidToken(token)) {
+    // 토큰이 유효하면 로그아웃 처리
+    memberService.logoutByToken(token);
+    // 성공 응답
+    return ResponseEntity.status(200).body("로그아웃 성공");
+  } else {
+    // 토큰이 유효하지 않으면 실패 응답
+    return ResponseEntity.status(400).body("유효하지 않은 토큰");
   }
+}
+
+//로그아웃 시 요청(헤더)에서 토큰 추출하기
+  private String extractToken(String authorizationHeader) {
+    // Authorization 헤더에서 "Bearer " 이후의 토큰 부분 추출
+    return authorizationHeader.replace("Bearer ", "");
+  }
+  //로그아웃 시 토큰 검증하기 위한 메서드
+  private boolean isValidToken(String token) {
+    // MemberEntity에서 해당 토큰을 가진 회원을 찾음
+    Optional<MemberEntity> member = memberRepository.findBySessionToken(token);
+
+    // 회원이 존재하고 토큰이 비어있지 않으면 유효한 토큰으로 간주
+    return member.isPresent() && member.get().hasSession_Token();  }
 
 
 }
