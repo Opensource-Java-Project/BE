@@ -36,6 +36,18 @@ public class BoardEntity extends BaseEntity{
     @Column
     private int fileAttached; // 1 or 0
 
+    @Column
+    private String reservationStart;
+
+    @Column
+    private String reservationEnd;
+
+    @Column
+    private String reservationContent;
+
+    @Column
+    private int boardPrice;
+
     @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<BoardFileEntity> boardFileEntityList = new ArrayList<>();
 
@@ -46,6 +58,10 @@ public class BoardEntity extends BaseEntity{
         boardEntity.setBoardPass(boardDTO.getBoardPass());
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
+        boardEntity.setReservationContent(boardDTO.getReservationContent());
+        boardEntity.setReservationEnd(boardDTO.getReservationEnd());
+        boardEntity.setReservationStart(boardDTO.getReservationStart());
+        boardEntity.setBoardPrice(boardDTO.getBoardPrice());
         boardEntity.setBoardHits(0);
         boardEntity.setFileAttached(0);
         return boardEntity;
@@ -57,7 +73,12 @@ public class BoardEntity extends BaseEntity{
         boardEntity.setBoardPass(boardDTO.getBoardPass());
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
+        boardEntity.setReservationContent(boardDTO.getReservationContent());
+        boardEntity.setReservationEnd(boardDTO.getReservationEnd());
+        boardEntity.setReservationStart(boardDTO.getReservationStart());
         boardEntity.setBoardHits(boardDTO.getBoardHits());
+        boardEntity.setBoardPrice(boardDTO.getBoardPrice());
+
         return boardEntity;
     }
 
@@ -67,6 +88,10 @@ public class BoardEntity extends BaseEntity{
         boardEntity.setBoardPass(boardDTO.getBoardPass());
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
+        boardEntity.setBoardPrice(boardDTO.getBoardPrice());
+        boardEntity.setReservationContent(boardDTO.getReservationContent());
+        boardEntity.setReservationEnd(boardDTO.getReservationEnd());
+        boardEntity.setReservationStart(boardDTO.getReservationStart());
         boardEntity.setBoardHits(0);
         boardEntity.setFileAttached(1); // 파일 있음.
         return boardEntity;

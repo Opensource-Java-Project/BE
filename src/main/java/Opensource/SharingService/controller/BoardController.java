@@ -29,12 +29,30 @@ public class BoardController {
     }
 
     @PostMapping("/upload")
-    public String save(@ModelAttribute BoardDTO boardDTO) throws IOException {
+    public String save(@RequestBody BoardDTO boardDTO) throws IOException {
         System.out.println("boardDTO = " + boardDTO);
         boardService.save(boardDTO);
         return "index";
     } // 게시글 저장 처리 완료(파일 저장)
 
+
+    /*@PostMapping("/reservation")
+    public void makeReservation(@RequestBody ReservationDTO reservationRequestDTO) {
+        // 여기서 reservationRequest를 이용하여 요청 처리 로직을 구현합니다.
+        Long boardIndex = reservationRequestDTO.getBoardIndex();
+        List<ReservationDTO.ReservationDTO> reservationList = reservationRequestDTO.getReservationList();
+
+        // 예약 정보 처리 로직을 작성합니다.
+        // reservationList에 있는 예약 정보를 확인하고 필요한 작업을 수행합니다.
+        for (ReservationRequestDTO.ReservationInfoDTO info : reservationList) {
+            String reservationStart = info.getReservationStart();
+            String reservationEnd = info.getReservationEnd();
+            String reservationContent = info.getReservationContent();
+
+            // 여기서 받은 예약 정보를 활용하여 작업 수행
+            // 예: 데이터베이스에 저장하거나 다른 작업 수행
+        }
+    }*/
 
 
     @GetMapping("/")
@@ -67,7 +85,7 @@ public class BoardController {
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute BoardDTO boardDTO, Model model) {
+    public String update(@RequestBody BoardDTO boardDTO, Model model) {
         BoardDTO board = boardService.update(boardDTO);
         model.addAttribute("board", board);
         return "detail";
