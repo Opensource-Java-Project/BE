@@ -38,6 +38,7 @@ public class BoardDTO {
 
     public static BoardDTO toBoardDTO (BoardEntity boardEntity) {
         BoardDTO boardDTO = new BoardDTO();
+        boardDTO.setBoardIndex(boardEntity.getBoardIndex()); // 게시글 번호 설정해줘야함. 안하면 오류
         boardDTO.setBoardWriter(boardEntity.getBoardWriter());
         boardDTO.setBoardPass(boardEntity.getBoardPass());
         boardDTO.setBoardContents(boardEntity.getBoardContents());

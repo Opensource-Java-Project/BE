@@ -13,13 +13,13 @@ public class BoardFileEntity extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Long boardFileIndex;
+    private Long boardFileIndex; // 게시글 파일 인덱스(PK)
 
     @Column
-    private String originalFileName;
+    private String originalFileName; // 원본 파일명(업로드 파일명)
 
     @Column
-    private String storedFileName;
+    private String storedFileName; // 저장된 파일명(서버 파일 경로)
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_index")
