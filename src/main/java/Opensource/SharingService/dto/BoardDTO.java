@@ -27,6 +27,11 @@ public class BoardDTO {
     private String storedFileName; // 서버 저장용 파일 이름
     private int fileAttached; // 파일 첨부여부 (1 or 0)
 
+    private String reservationStart;
+    private String reservationEnd;
+    private String reservationContent;
+    private int boardPrice;
+
 
     public BoardDTO(Long boardIndex, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreatedTime){
         this.boardIndex = boardIndex;
@@ -46,6 +51,12 @@ public class BoardDTO {
         boardDTO.setBoardHits(boardEntity.getBoardHits());
         boardDTO.setBoardCreatedTime(boardEntity.getCreatedTime());
         boardDTO.setBoardUpdatedTime(boardEntity.getUpdatedTime());
+
+        boardDTO.setBoardPrice(boardEntity.getBoardPrice());
+        boardDTO.setReservationStart(boardEntity.getReservationStart());
+        boardDTO.setReservationEnd(boardEntity.getReservationEnd());
+        boardDTO.setReservationContent(boardEntity.getReservationContent());
+
         if (boardEntity.getFileAttached() == 0) {
             boardDTO.setFileAttached(boardEntity.getFileAttached());
         } else {

@@ -52,10 +52,12 @@ public class BoardService {
             Long saveIndex = boardRepository.save(boardEntity).getBoardIndex();
             BoardEntity board = boardRepository.findById(saveIndex).get();
 
+
             BoardFileEntity boardFileEntity = BoardFileEntity.toBoardFileEntity(board, originalFilename, storedFileName);
             boardFileRepository.save(boardFileEntity);
         }
     } // 저장 처리
+
     @Transactional
     public List<BoardDTO> findAll() {
         List<BoardEntity> boardEntityList = boardRepository.findAll();
@@ -65,6 +67,17 @@ public class BoardService {
         }
         return boardDTOList; // 게시글 목록 가져오기
     }
+
+    /*@Transactional
+    public ReservationDTO makeReservation(ReservationDTO reservationDTO) {
+        List<BoardEntity> boardEntityList = boardRepository.makeReservation();
+        List<ReservationDTO> reservationDTOList = new ArrayList<>();
+        for (BoardEntity boardEntity : boardEntityList) {
+            reservationDTOList.add(ReservationDTO.toReservationDTO(boardEntity));
+        }
+        return reservationDTOList; // 예약 처리
+    }
+*/
 
     @Transactional
     public BoardDTO updateHits(Long hitsIndex) {
