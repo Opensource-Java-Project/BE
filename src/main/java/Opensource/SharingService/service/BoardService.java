@@ -55,7 +55,7 @@ public class BoardService {
             BoardFileEntity boardFileEntity = BoardFileEntity.toBoardFileEntity(board, originalFilename, storedFileName);
             boardFileRepository.save(boardFileEntity);
         }
-    }
+    } // 저장 처리
     @Transactional
     public List<BoardDTO> findAll() {
         List<BoardEntity> boardEntityList = boardRepository.findAll();
@@ -63,13 +63,13 @@ public class BoardService {
         for (BoardEntity boardEntity : boardEntityList) {
             boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
         }
-        return boardDTOList;
+        return boardDTOList; // 게시글 목록 가져오기
     }
 
     @Transactional
     public BoardDTO updateHits(Long hitsIndex) {
         boardRepository.updateHits(hitsIndex);
-        return findById(hitsIndex);
+        return findById(hitsIndex); // 조회수 처리
     }
 
     @Transactional
@@ -78,7 +78,7 @@ public class BoardService {
         if (optionalBoardEntity.isPresent()){
             BoardEntity boardEntity = optionalBoardEntity.get();
             BoardDTO boardDTO = BoardDTO.toBoardDTO(boardEntity);
-            return boardDTO;
+            return boardDTO; // 게시글 상세 보기 처리
         } else {
             return null;
         }

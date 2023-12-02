@@ -19,7 +19,7 @@ public class CommentService {
     private final BoardRepository boardRepository;
 
     public Long save(CommentDTO commentDTO) {
-        Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(commentDTO.getBoardId());
+        Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(commentDTO.getBoardIndex());
         if (optionalBoardEntity.isPresent()) {
             BoardEntity boardEntity = optionalBoardEntity.get();
             CommentEntity commentEntity = CommentEntity.toSaveEntity(commentDTO, boardEntity);

@@ -10,19 +10,19 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 public class CommentDTO {
-    private Long boardIndex;
+    private Long commentIndex;
     private String commentWriter;
     private String commentContents;
-    private Long boardId;
+    private Long boardIndex; // 게시글 번호
     private LocalDateTime commentCreatedTime;
 
-    public static CommentDTO toCommentDTO(CommentEntity commentEntity, Long boardId) {
+    public static CommentDTO toCommentDTO(CommentEntity commentEntity, Long boardIndex) {
         CommentDTO commentDTO = new CommentDTO();
-        commentDTO.setBoardIndex(commentEntity.getCommentIndex());
+        commentDTO.setCommentIndex(commentEntity.getCommentIndex());
         commentDTO.setCommentWriter(commentEntity.getCommentWriter());
         commentDTO.setCommentContents(commentEntity.getCommentContents());
         commentDTO.setCommentCreatedTime(commentEntity.getCreatedTime());
-        commentDTO.setBoardId(boardId);
+        commentDTO.setBoardIndex(boardIndex);
         return commentDTO;
     }
 }

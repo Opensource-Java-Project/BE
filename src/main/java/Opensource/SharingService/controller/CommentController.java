@@ -22,7 +22,7 @@ public class CommentController {
         System.out.println("commentDTO = " + commentDTO);
         Long saveResult = commentService.save(commentDTO);
         if (saveResult != null) {
-            List<CommentDTO> commentDTOList = commentService.findAll(commentDTO.getBoardId());
+            List<CommentDTO> commentDTOList = commentService.findAll(commentDTO.getBoardIndex());
             return new ResponseEntity<>(commentDTOList, HttpStatus.OK);
         }
         else {
