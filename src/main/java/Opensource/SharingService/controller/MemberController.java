@@ -93,8 +93,11 @@ public class MemberController {
 //로그아웃
 @PostMapping("/logout")
 public ResponseEntity<String> logout(@RequestHeader("Authorization") String authorizationHeader) {
+  System.out.println("로그아웃 요청");    // 로그아웃 요청 들어오나  확인
   // Authorization 헤더에서 토큰 추출
   String token = extractToken(authorizationHeader);
+  System.out.println(token);  // token값 제대로 추출했는지 확인
+
 
   // 토큰 검증
   if (isValidToken(token)) {
@@ -110,8 +113,14 @@ public ResponseEntity<String> logout(@RequestHeader("Authorization") String auth
 
 //로그아웃 시 요청(헤더)에서 토큰 추출하기
   private String extractToken(String authorizationHeader) {
+    System.out.println("추출시작");
     // Authorization 헤더에서 "Bearer " 이후의 토큰 부분 추출
-    return authorizationHeader.replace("Bearer ", "");
+    if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+      // "Bearer " 이후의 토큰 부분 추출
+      System.out.println("추출?");
+      return authorizationHeader.substring(7);
+    }
+    return "추출실패"; // 추출 실패 시 빈 문자열 반환
   }
   //로그아웃 시 토큰 검증하기 위한 메서드
   private boolean isValidToken(String token) {
