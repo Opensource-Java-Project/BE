@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,10 +29,11 @@ public class BoardController {
     }
 
     @PostMapping("/upload")
-    public String save(@RequestBody BoardDTO boardDTO) throws IOException {
+    @ResponseBody // JSON 응답을 위한 어노테이션
+    public ResponseEntity<String> save(@RequestBody BoardDTO boardDTO) throws IOException {
         System.out.println("boardDTO = " + boardDTO);
         boardService.save(boardDTO);
-        return "index";
+        return ResponseEntity.ok("Successfully saved!"); // 성공적인 응답을 JSON 형식으로 반환
     } // 게시글 저장 처리 완료(파일 저장)
 
 
@@ -81,6 +83,13 @@ public class BoardController {
         boardService.delete(index);
         return "redirect:/board/";
     } // 게시글 삭제 후 목록 페이지로 이동하는 메소드
+
+
+
+
+
+
+
 
     // /board/paging?page=1
     /*@GetMapping("/paging")

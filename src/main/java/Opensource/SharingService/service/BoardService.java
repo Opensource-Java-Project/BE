@@ -6,11 +6,6 @@ import Opensource.SharingService.entity.BoardFileEntity;
 import Opensource.SharingService.repository.BoardFileRepository;
 import Opensource.SharingService.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,7 +21,6 @@ import java.util.Optional;
 public class BoardService {
     private final BoardRepository boardRepository;
     private final BoardFileRepository boardFileRepository;
-    private final ModelMapper modelMapper;
 
     public void save(BoardDTO boardDTO) throws IOException {
         if (boardDTO.getBoardFile().isEmpty()) {

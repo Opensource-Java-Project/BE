@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -13,23 +15,23 @@ import lombok.Setter;
 public class ReservationInfoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long reservationIndex;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_index")
-    private BoardEntity boardEntity;
+    private BoardEntity board;
 
     private String start;
     private String end;
     private String content;
 
-    public static BoardEntity toSaveEntity(ReservationInfoDTO reservationInfoDTO) {
-        BoardEntity boardEntity = new BoardEntity();
-        boardEntity.setStart(reservationInfoDTO.getStart());
-        boardEntity.setEnd(reservationInfoDTO.getEnd());
-        boardEntity.setContent(reservationInfoDTO.getContent());
+    public static ReservationInfoEntity toSaveEntity(ReservationInfoDTO reservationInfoDTO) {
+        ReservationInfoEntity reservationInfoEntity = new ReservationInfoEntity();
+        reservationInfoEntity.setStart(reservationInfoDTO.getStart());
+        reservationInfoEntity.setEnd(reservationInfoDTO.getEnd());
+        reservationInfoEntity.setContent(reservationInfoDTO.getContent());
 
-        return boardEntity;
+        return reservationInfoEntity;
     } // 엔티티 생성 메서드.
     // 생성자, getter, setter 등 필요한 메서드 추가
 }
