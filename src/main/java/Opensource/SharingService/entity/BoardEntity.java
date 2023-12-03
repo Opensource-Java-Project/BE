@@ -43,11 +43,10 @@ public class BoardEntity extends BaseEntity{
     @Column
     private String boardPrice;
 
-    /*@OneToMany(mappedBy = "boardEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<boad> reservationList = new ArrayList<>();*/
 
     @ElementCollection
     private List<String> boardImage; // 이미지 URL 목록
+
 
     @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<BoardFileEntity> boardFileEntityList = new ArrayList<>();

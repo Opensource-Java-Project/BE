@@ -27,7 +27,9 @@ public class BoardDTO {
     private List<String> boardImage; // 이미지 링크 목록
 
     private String boardPrice;
+/*
     private List<ReservationDTO> reservationList;
+*/
 
 
 
@@ -55,15 +57,12 @@ public class BoardDTO {
             boardDTO.setStoredFileName(boardEntity.getBoardFileEntityList().get(0).getStoredFileName());*/
             boardDTO.setBoardImage(boardEntity.getBoardImage());
         }
-        boardDTO.setReservationList(boardEntity.getReservationList()); // 이 부분을 추가합니다.
+
 
         return boardDTO;
     } // 엔티티 -> DTO 변환 용 생성자
 
-    private void setReservationList(List<ReservationInfoEntity> reservationList) {
-        this.reservationList = reservationList;
 
-    }
 
 
 }
