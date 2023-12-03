@@ -10,7 +10,6 @@ import java.util.List;
 @Getter
 @Setter
 public class ReservationDTO {
-    private Long boardIndex;
     private List<ReservationInfoDTO> reservationList;
 
 }
