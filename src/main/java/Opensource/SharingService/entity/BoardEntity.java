@@ -1,6 +1,7 @@
 package Opensource.SharingService.entity;
 
     import Opensource.SharingService.dto.BoardDTO;
+    import Opensource.SharingService.dto.ReservationDTO;
     import jakarta.persistence.*;
     import lombok.Getter;
     import lombok.Setter;
@@ -22,31 +23,31 @@ public class BoardEntity extends BaseEntity{
     @Column(length = 20, nullable = false)
     private String boardWriter;
 
-    @Column
-    private String boardPass;
-
     @Column String boardTitle;
 
     @Column(length = 500)
     private String boardContents;
 
     @Column
-    private int boardHits;
-
-    @Column
     private int fileAttached; // 1 or 0
 
     @Column
-    private String reservationStart;
+    private String start;
 
     @Column
-    private String reservationEnd;
+    private String end;
 
     @Column
-    private String reservationContent;
+    private String content;
 
     @Column
-    private int boardPrice;
+    private String boardPrice;
+
+    /*@OneToMany(mappedBy = "boardEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<boad> reservationList = new ArrayList<>();*/
+
+    @ElementCollection
+    private List<String> boardImage; // 이미지 URL 목록
 
     @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<BoardFileEntity> boardFileEntityList = new ArrayList<>();
@@ -55,46 +56,35 @@ public class BoardEntity extends BaseEntity{
     public static BoardEntity toSaveEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.setBoardWriter(boardDTO.getBoardWriter());
-        boardEntity.setBoardPass(boardDTO.getBoardPass());
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
-        boardEntity.setReservationContent(boardDTO.getReservationContent());
-        boardEntity.setReservationEnd(boardDTO.getReservationEnd());
-        boardEntity.setReservationStart(boardDTO.getReservationStart());
         boardEntity.setBoardPrice(boardDTO.getBoardPrice());
-        boardEntity.setBoardHits(0);
+
         boardEntity.setFileAttached(0);
         return boardEntity;
-    }
+    } // 엔티티 생성 메서드.
+
     public static BoardEntity toUpdateEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.setBoardIndex(boardDTO.getBoardIndex());
         boardEntity.setBoardWriter(boardDTO.getBoardWriter());
-        boardEntity.setBoardPass(boardDTO.getBoardPass());
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
-        boardEntity.setReservationContent(boardDTO.getReservationContent());
-        boardEntity.setReservationEnd(boardDTO.getReservationEnd());
-        boardEntity.setReservationStart(boardDTO.getReservationStart());
-        boardEntity.setBoardHits(boardDTO.getBoardHits());
         boardEntity.setBoardPrice(boardDTO.getBoardPrice());
 
+
         return boardEntity;
-    }
+    } // 엔티티 생성 메서드.
 
     public static BoardEntity toSaveFileEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.setBoardWriter(boardDTO.getBoardWriter());
-        boardEntity.setBoardPass(boardDTO.getBoardPass());
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setBoardPrice(boardDTO.getBoardPrice());
-        boardEntity.setReservationContent(boardDTO.getReservationContent());
-        boardEntity.setReservationEnd(boardDTO.getReservationEnd());
-        boardEntity.setReservationStart(boardDTO.getReservationStart());
-        boardEntity.setBoardHits(0);
         boardEntity.setFileAttached(1); // 파일 있음.
         return boardEntity;
-    }
+    } // 엔티티 생성 메서드.
+
 
 }

@@ -6,6 +6,7 @@ import Opensource.SharingService.entity.BoardFileEntity;
 import Opensource.SharingService.repository.BoardFileRepository;
 import Opensource.SharingService.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,7 @@ import java.util.Optional;
 public class BoardService {
     private final BoardRepository boardRepository;
     private final BoardFileRepository boardFileRepository;
+    private final ModelMapper modelMapper;
 
     public void save(BoardDTO boardDTO) throws IOException {
         if (boardDTO.getBoardFile().isEmpty()) {
@@ -80,37 +82,31 @@ public class BoardService {
 */
 
     @Transactional
-    public BoardDTO updateHits(Long hitsIndex) {
-        boardRepository.updateHits(hitsIndex);
-        return findById(hitsIndex); // 조회수 처리
-    }
-
-    @Transactional
-    public BoardDTO findById(Long findIndex) {
-        Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(findIndex);
+    public BoardDTO findById(Long boardIndex) {
+        Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(boardIndex);
         if (optionalBoardEntity.isPresent()){
             BoardEntity boardEntity = optionalBoardEntity.get();
             BoardDTO boardDTO = BoardDTO.toBoardDTO(boardEntity);
-            return boardDTO; // 게시글 상세 보기 처리
+            return boardDTO;
         } else {
             return null;
         }
-    }
+    } // 상세 보기 처리
     public BoardDTO update(BoardDTO boardDTO){
         BoardEntity boardEntity = BoardEntity.toUpdateEntity(boardDTO);
         boardRepository.save(boardEntity);
         return findById(boardDTO.getBoardIndex());
     } // 수정 처리
 
-    public void delete(Long deleteIndex){
-        boardRepository.deleteById(deleteIndex);
+    public void delete(Long boardIndex){
+        boardRepository.deleteById(boardIndex);
     } // 삭제 처리
 
-    public Page<BoardDTO> paging(Pageable pageable) {
+    /*public Page<BoardDTO> paging(Pageable pageable) {
         int page = pageable.getPageNumber() - 1; // 페이지 번호
         int pageLimit = 5; // 페이지 당 게시물 수
         Page<BoardEntity> boardEntities =
-                boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "index")));
+                boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "boardIndex")));
 
         System.out.println("boardEntities.getContent() = " + boardEntities.getContent()); // 요청 페이지에 해당하는 글
         System.out.println("boardEntities.getTotalElements() = " + boardEntities.getTotalElements()); // 전체 글갯수
@@ -122,9 +118,9 @@ public class BoardService {
         System.out.println("boardEntities.isLast() = " + boardEntities.isLast()); // 마지막 페이지 여부
 
         // 목록: id, writer, title, hits, createdTime
-        Page<BoardDTO> boardDTOS = boardEntities.map(board -> new BoardDTO(board.getBoardIndex(), board.getBoardWriter(), board.getBoardTitle(), board.getBoardHits(), board.getCreatedTime()));
+        Page<BoardDTO> boardDTOS = boardEntities.map(board -> new BoardDTO(board.getBoardIndex(), board.getBoardWriter(), board.getBoardTitle()));
 
         return boardDTOS;
-    }
+    }*/
 }
 
