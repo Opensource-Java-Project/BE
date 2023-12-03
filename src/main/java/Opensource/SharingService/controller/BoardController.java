@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,21 +38,22 @@ public class BoardController {
     } // 게시글 저장 처리 완료(파일 저장)
 
 
-    @PostMapping("/reservation")
-    public void makeReservation(@RequestBody ReservationDTO reservationDTO) {
-        Long boardIndex = reservationDTO.getBoardIndex();
-        List<ReservationInfoDTO> reservationList = reservationDTO.getReservationList();
 
-        // 여기서 reservationList에 담긴 예약 정보를 확인하고 필요한 작업을 수행합니다.
-        for (ReservationInfoDTO info : reservationList) {
-            String reservationStart = info.getStart();
-            String reservationEnd = info.getEnd();
-            String reservationContent = info.getContent();
 
-            // 여기서 받은 예약 정보를 활용하여 작업을 수행합니다.
-            // 예를 들어, 데이터베이스에 저장하거나 다른 작업을 수행할 수 있습니다.
-        }
+    @PostMapping("/receiveData")
+    public ResponseEntity<String> saveReservation(@RequestBody ReservationInfoDTO requestBodyDTO) {
+        // DTO에 있는 값을 가져와서 사용할 수 있습니다.
+        String start = requestBodyDTO.getStart();
+        String end = requestBodyDTO.getEnd();
+        String content = requestBodyDTO.getContent();
+
+        // 가져온 값들을 조합하여 다시 응답으로 전송할 수 있습니다.
+        String combinedInfo = start + " - " + end + ": " + content;
+
+        // 조합한 정보를 반환한다.
+        return new ResponseEntity<>(combinedInfo, HttpStatus.OK);
     }
+
 
 
     @GetMapping("/all")

@@ -1,10 +1,13 @@
 package Opensource.SharingService.service;
 
 import Opensource.SharingService.dto.BoardDTO;
+import Opensource.SharingService.dto.ReservationInfoDTO;
 import Opensource.SharingService.entity.BoardEntity;
 import Opensource.SharingService.entity.BoardFileEntity;
+import Opensource.SharingService.entity.ReservationInfoEntity;
 import Opensource.SharingService.repository.BoardFileRepository;
 import Opensource.SharingService.repository.BoardRepository;
+import Opensource.SharingService.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +24,7 @@ import java.util.Optional;
 public class BoardService {
     private final BoardRepository boardRepository;
     private final BoardFileRepository boardFileRepository;
+    private final ReservationRepository reservationRepository;
 
     public void save(BoardDTO boardDTO) throws IOException {
         if (boardDTO.getBoardFile().isEmpty()) {
@@ -54,6 +58,13 @@ public class BoardService {
         }
     } // 저장 처리
 
+    public void saveReservation(ReservationInfoDTO reservationDTO) throws IOException {
+        if (reservationDTO != null) {
+            ReservationInfoEntity reservationEntity = ReservationInfoEntity.toSaveEntity(reservationDTO);
+            reservationRepository.save(reservationEntity);
+        }
+    }
+
     @Transactional
     public List<BoardDTO> findAll() {
         List<BoardEntity> boardEntityList = boardRepository.findAll();
@@ -64,16 +75,6 @@ public class BoardService {
         return boardDTOList; // 게시글 목록 가져오기
     }
 
-    /*@Transactional
-    public ReservationDTO makeReservation(ReservationDTO reservationDTO) {
-        List<BoardEntity> boardEntityList = boardRepository.makeReservation();
-        List<ReservationDTO> reservationDTOList = new ArrayList<>();
-        for (BoardEntity boardEntity : boardEntityList) {
-            reservationDTOList.add(ReservationDTO.toReservationDTO(boardEntity));
-        }
-        return reservationDTOList; // 예약 처리
-    }
-*/
 
     @Transactional
     public BoardDTO findById(Long boardIndex) {
