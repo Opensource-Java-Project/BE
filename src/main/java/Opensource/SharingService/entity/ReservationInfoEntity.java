@@ -19,7 +19,7 @@ public class ReservationInfoEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_index")
-    private BoardEntity board;
+    private BoardEntity boardIndex;
 
     private String start;
     private String end;
