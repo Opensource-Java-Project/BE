@@ -1,9 +1,9 @@
 package Opensource.SharingService.controller;
 
 import Opensource.SharingService.dto.BoardDTO;
-import Opensource.SharingService.dto.CommentDTO;
+import Opensource.SharingService.dto.ReservationDTO;
+import Opensource.SharingService.dto.ReservationInfoDTO;
 import Opensource.SharingService.service.BoardService;
-import Opensource.SharingService.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,12 +15,11 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/board") // 게시글 저장 주소 설정
 public class BoardController {
     private final BoardService boardService;
-    private final CommentService commentService;
 
 
     @GetMapping("/upload")
@@ -36,26 +35,24 @@ public class BoardController {
     } // 게시글 저장 처리 완료(파일 저장)
 
 
-    /*@PostMapping("/reservation")
-    public void makeReservation(@RequestBody ReservationDTO reservationRequestDTO) {
-        // 여기서 reservationRequest를 이용하여 요청 처리 로직을 구현합니다.
-        Long boardIndex = reservationRequestDTO.getBoardIndex();
-        List<ReservationDTO.ReservationDTO> reservationList = reservationRequestDTO.getReservationList();
+    @PostMapping("/reservation")
+    public void makeReservation(@RequestBody ReservationDTO reservationDTO) {
+        Long boardIndex = reservationDTO.getBoardIndex();
+        List<ReservationInfoDTO> reservationList = reservationDTO.getReservationList();
 
-        // 예약 정보 처리 로직을 작성합니다.
-        // reservationList에 있는 예약 정보를 확인하고 필요한 작업을 수행합니다.
-        for (ReservationRequestDTO.ReservationInfoDTO info : reservationList) {
-            String reservationStart = info.getReservationStart();
-            String reservationEnd = info.getReservationEnd();
-            String reservationContent = info.getReservationContent();
+        // 여기서 reservationList에 담긴 예약 정보를 확인하고 필요한 작업을 수행합니다.
+        for (ReservationInfoDTO info : reservationList) {
+            String reservationStart = info.getStart();
+            String reservationEnd = info.getEnd();
+            String reservationContent = info.getContent();
 
-            // 여기서 받은 예약 정보를 활용하여 작업 수행
-            // 예: 데이터베이스에 저장하거나 다른 작업 수행
+            // 여기서 받은 예약 정보를 활용하여 작업을 수행합니다.
+            // 예를 들어, 데이터베이스에 저장하거나 다른 작업을 수행할 수 있습니다.
         }
-    }*/
+    }
 
 
-    @GetMapping("/")
+    @GetMapping("/all")
     public String findAll(Model model) {
         // DB에서 전체 게시글 데이터를 가져와서 list.html에 보여준다.
         List<BoardDTO> boardDTOList = boardService.findAll();
@@ -63,26 +60,13 @@ public class BoardController {
         return "list";
     }
 
-    @GetMapping("/{index}") // 주소창에 입력한 값을 받아오는 것
-    public String findById(@PathVariable Long index, Model model,
-                           @PageableDefault(page = 1) Pageable pageable) {
-
-        boardService.updateHits(index);
-        BoardDTO boardDTO = boardService.findById(index);
-        /* 댓글 목록 가져오기 */
-        List<CommentDTO> commentDTOList = commentService.findAll(index);
-        model.addAttribute("commentList", commentDTOList);
-        model.addAttribute("board", boardDTO);
-        model.addAttribute("page", pageable.getPageNumber());
-        return "detail";
-    }
 
     @GetMapping("/update/{index}")
     public String updateForm(@PathVariable Long index, Model model) {
         BoardDTO boardDTO = boardService.findById(index);
         model.addAttribute("boardUpdate", boardDTO);
         return "update";
-    }
+    } // 게시글 수정 페이지 출력 메소드. 수정할 게시글 데이�
 
     @PostMapping("/update")
     public String update(@RequestBody BoardDTO boardDTO, Model model) {
@@ -99,7 +83,7 @@ public class BoardController {
     } // 게시글 삭제 후 목록 페이지로 이동하는 메소드
 
     // /board/paging?page=1
-    @GetMapping("/paging")
+    /*@GetMapping("/paging")
     public String paging(@PageableDefault(page = 1) Pageable pageable, Model model) {
 //        pageable.getPageNumber();
         Page<BoardDTO> boardList = boardService.paging(pageable);
@@ -120,7 +104,7 @@ public class BoardController {
         model.addAttribute("endPage", endPage);
         return "paging";
 
-    } // 페이징 처리 후 목록 페이지로 이동하는 메소드
+    } // 페이징 처리 후 목록 페이지로 이동하는 메소드*/
 
 
 
