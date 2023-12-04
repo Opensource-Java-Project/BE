@@ -41,51 +41,21 @@ public class BoardController {
 
 
 
-    @PostMapping("/receiveData")
-    public ResponseEntity<String> saveReservation(@RequestBody ReservationInfoDTO reservationInfoDTO) {
+    @PostMapping("/reservation")
+    public ResponseEntity<String> reservation(@RequestBody ReservationInfoDTO reservationInfoDTO) {
         // DTO에 있는 값을 가져와서 사용할 수 있습니다.
         String start = reservationInfoDTO.getStart();
         String end = reservationInfoDTO.getEnd();
         String content = reservationInfoDTO.getContent();
 
         // 가져온 값들을 조합하여 다시 응답으로 전송할 수 있습니다.
-        String combinedInfo = start + " - " + end + ": " + content;
+        String reservationList = start + " - " + end + ": " + content;
 
         // 조합한 정보를 반환한다.
-        return new ResponseEntity<>(combinedInfo, HttpStatus.OK);
+        return new ResponseEntity<>(reservationList, HttpStatus.OK);
     }
 
-    @GetMapping("/receiveData")
-    public String saveReservation(Model model) {
-        List<ReservationDTO> reservationDTOList = boardService.findAllReservation();
-        List<ReservationInfoDTO> processedReservationInfoList = new ArrayList<>();
 
-        for (ReservationDTO reservationDTO : reservationDTOList) {
-            List<ReservationInfoDTO> reservationInfoList = reservationDTO.getReservationList();
-            if (reservationInfoList != null) {
-                for (ReservationInfoDTO reservationInfoDTO : reservationInfoList) {
-                    // 필요한 정보 추출 및 처리
-                    Long boardIndex = reservationInfoDTO.getBoardIndex();
-                    String start = reservationInfoDTO.getStart();
-                    String end = reservationInfoDTO.getEnd();
-                    String content = reservationInfoDTO.getContent();
-
-                    // 예시: 추출한 정보를 활용하여 새로운 ReservationInfoDTO 객체 생성
-                    ReservationInfoDTO processedReservationInfoDTO = new ReservationInfoDTO();
-                    processedReservationInfoDTO.setBoardIndex(boardIndex);
-                    processedReservationInfoDTO.setStart(start);
-                    processedReservationInfoDTO.setEnd(end);
-                    processedReservationInfoDTO.setContent(content);
-
-                    // 처리된 ReservationInfoDTO를 리스트에 추가
-                    processedReservationInfoList.add(processedReservationInfoDTO);
-                }
-            }
-        }
-
-        model.addAttribute("processedReservationInfoList", processedReservationInfoList);
-        return "list";
-    }
 
 
     @GetMapping("/all")
@@ -102,7 +72,7 @@ public class BoardController {
         BoardDTO boardDTO = boardService.findById(index);
         model.addAttribute("boardUpdate", boardDTO);
         return "update";
-    } // 게시글 수정 페이지 출력 메소드. 수정할 게시글 데이�
+    } // 게시글 수정 페이지 출력 메소드.
 
     @PostMapping("/update")
     public String update(@RequestBody BoardDTO boardDTO, Model model) {
