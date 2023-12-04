@@ -57,7 +57,7 @@ public class BoardController {
 
     @GetMapping("/receiveData")
     public String saveReservation(Model model) {
-        List<ReservationDTO> reservationDTOList = boardService.findAllReservation();
+        List<ReservationDTO> reservationDTOList = boardService.findAll();
         List<ReservationInfoDTO> processedReservationInfoList = new ArrayList<>();
 
         for (ReservationDTO reservationDTO : reservationDTOList) {
