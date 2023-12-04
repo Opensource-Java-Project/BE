@@ -39,6 +39,10 @@ public class BoardController {
     } // 게시글 저장 처리 완료(파일 저장)
 
 
+    @GetMapping("/reservation")
+    public String reservationForm() {
+        return "save";
+    }
 
 
     @PostMapping("/reservation")
@@ -51,9 +55,20 @@ public class BoardController {
         // 가져온 값들을 조합하여 다시 응답으로 전송할 수 있습니다.
         String reservationList = start + " - " + end + ": " + content;
 
-        // 조합한 정보를 반환한다.
+        // 예약 정보를 저장합니다.
+        try {
+            boardService.saveReservation(reservationInfoDTO);
+        } catch (IOException e) {
+            // IOException 처리 로직
+            return new ResponseEntity<>("Failed to save reservation", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        // 조합한 정보를 반환합니다.
         return new ResponseEntity<>(reservationList, HttpStatus.OK);
     }
+
+    /*@GetMapping("/saveReservation")
+    public*/
 
 
 
