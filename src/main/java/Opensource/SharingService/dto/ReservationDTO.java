@@ -11,5 +11,4 @@ import java.util.List;
 @Setter
 public class ReservationDTO {
     private List<ReservationInfoDTO> reservationList;
-
 }

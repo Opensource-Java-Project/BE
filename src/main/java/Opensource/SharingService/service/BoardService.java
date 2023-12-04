@@ -59,60 +59,6 @@ public class BoardService {
         }
     } // 저장 처리
 
-    /*public void saveReservation(ReservationDTO reservationDTO, ReservationInfoDTO reservationInfoDTO) throws IOException {
-        if (reservationDTO != null) {
-            ReservationInfoEntity reservationEntity = ReservationInfoEntity.toSaveEntity(reservationInfoDTO);
-            reservationRepository.save(reservationEntity);
-        }
-    }*/
-
-    public void saveReservation(List<ReservationInfoDTO> reservationList) {
-        if (reservationList != null) {
-            for (ReservationInfoDTO reservationInfoDTO : reservationList) {
-                // ReservationInfoDTO에서 필요한 정보 추출
-                Long boardIndex = reservationInfoDTO.getBoardIndex();
-                String start = reservationInfoDTO.getStart();
-                String end = reservationInfoDTO.getEnd();
-                String content = reservationInfoDTO.getContent();
-
-                // 필요한 정보 활용 (예시로 출력)
-                System.out.println("Board Index: " + boardIndex);
-                System.out.println("Start: " + start);
-                System.out.println("End: " + end);
-                System.out.println("Content: " + content);
-
-                // 필요한 정보를 활용하여 다른 작업 수행 가능
-                // boardIndex, start, end, content 등을 활용하여 원하는 로직을 수행할 수 있음
-            }
-        }
-    }
-
-    @Transactional
-    public List<ReservationInfoDTO> findAllAndProcessReservation() {
-        List<ReservationInfoEntity> reservationEntityList = reservationRepository.findAll();
-        List<ReservationInfoDTO> processedReservationDTOList = new ArrayList<>();
-
-        for (ReservationInfoEntity reservationEntity : reservationEntityList) {
-            // 필요한 필드 추출
-            Long boardIndex = reservationEntity.getBoardIndex();
-            String start = reservationEntity.getStart();
-            String end = reservationEntity.getEnd();
-            String content = reservationEntity.getContent();
-
-            // 추출한 필드를 활용하여 새로운 객체 생성
-            ReservationInfoDTO processedReservationInfoDTO = new ReservationInfoDTO();
-            ReservationInfoDTO.setBoardIndex(boardIndex);
-            ReservationInfoDTO.setStart(start);
-            ReservationInfoDTO.setEnd(end);
-            ReservationInfoDTO.setContent(content);
-
-            // 처리된 객체를 리스트에 추가
-            processedReservationDTOList.add(processedReservationInfoDTO);
-        }
-
-        return processedReservationDTOList;
-    }
-
 
     @Transactional
     public List<BoardDTO> findAll() {
@@ -136,6 +82,7 @@ public class BoardService {
             return null;
         }
     } // 상세 보기 처리
+
     public BoardDTO update(BoardDTO boardDTO){
         BoardEntity boardEntity = BoardEntity.toUpdateEntity(boardDTO);
         boardRepository.save(boardEntity);
@@ -145,6 +92,11 @@ public class BoardService {
     public void delete(Long boardIndex){
         boardRepository.deleteById(boardIndex);
     } // 삭제 처리
+
+
+
+
+
 
     /*public Page<BoardDTO> paging(Pageable pageable) {
         int page = pageable.getPageNumber() - 1; // 페이지 번호

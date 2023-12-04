@@ -27,6 +27,7 @@ public class ReservationInfoEntity {
 
     public static ReservationInfoEntity toSaveEntity(ReservationInfoDTO reservationInfoDTO) {
         ReservationInfoEntity reservationInfoEntity = new ReservationInfoEntity();
+        reservationInfoEntity.setReservationIndex(reservationInfoDTO.getBoardIndex());
         reservationInfoEntity.setStart(reservationInfoDTO.getStart());
         reservationInfoEntity.setEnd(reservationInfoDTO.getEnd());
         reservationInfoEntity.setContent(reservationInfoDTO.getContent());
