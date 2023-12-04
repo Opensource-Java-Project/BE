@@ -9,6 +9,7 @@ spring:
     url: jdbc:mysql://localhost:3306/sharingservice
     username:
     password:
+  thymeleaf:
     cache: false
 
   # spring data jpa 설정
