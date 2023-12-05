@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "board_file_table")
-public class BoardFileEntity extends BaseEntity{
+public class BoardFileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 

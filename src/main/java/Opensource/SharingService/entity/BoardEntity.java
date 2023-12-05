@@ -1,7 +1,6 @@
 package Opensource.SharingService.entity;
 
     import Opensource.SharingService.dto.BoardDTO;
-    import Opensource.SharingService.dto.ReservationDTO;
     import jakarta.persistence.*;
     import lombok.Getter;
     import lombok.Setter;
@@ -13,7 +12,7 @@ package Opensource.SharingService.entity;
 @Getter
 @Setter
 @Table(name = "board_table")
-public class BoardEntity extends BaseEntity{
+public class BoardEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO) // auto_increment
 
@@ -32,19 +31,12 @@ public class BoardEntity extends BaseEntity{
     private int fileAttached; // 1 or 0
 
     @Column
-    private String start;
-
-    @Column
-    private String end;
-
-    @Column
-    private String content;
-
-    @Column
     private String boardPrice;
 
 
     @ElementCollection
+    @CollectionTable(name = "user_emails", joinColumns = @JoinColumn(name = "user_boardWriter"))
+    @Column(name = "email")
     private List<String> boardImage; // 이미지 URL 목록
 
 
