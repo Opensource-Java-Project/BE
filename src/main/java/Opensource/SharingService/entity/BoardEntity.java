@@ -6,7 +6,9 @@ package Opensource.SharingService.entity;
     import lombok.Setter;
 
     import java.util.ArrayList;
+    import java.util.HashSet;
     import java.util.List;
+    import java.util.Set;
 
 @Entity
 @Getter
@@ -37,6 +39,9 @@ public class BoardEntity {
     @ElementCollection
     @CollectionTable(name = "user_emails", joinColumns = @JoinColumn(name = "user_boardWriter"))
     @Column(name = "email")
+    private Set<String> emails = new HashSet<>();
+
+    @ElementCollection
     private List<String> boardImage; // 이미지 URL 목록
 
 
