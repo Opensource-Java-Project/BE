@@ -1,21 +1,15 @@
 package Opensource.SharingService.controller;
 
 import Opensource.SharingService.dto.BoardDTO;
-import Opensource.SharingService.dto.ReservationDTO;
 import Opensource.SharingService.dto.ReservationInfoDTO;
 import Opensource.SharingService.service.BoardService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -87,7 +81,7 @@ public class BoardController {
         BoardDTO boardDTO = boardService.findById(index);
         model.addAttribute("boardUpdate", boardDTO);
         return "update";
-    } // 게시글 수정 페이지 출력 메소드.
+    } // 게시글 수정 페이지로 이동하는 메소드
 
     @PostMapping("/update")
     public String update(@RequestBody BoardDTO boardDTO, Model model) {

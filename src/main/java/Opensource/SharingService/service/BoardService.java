@@ -1,7 +1,6 @@
 package Opensource.SharingService.service;
 
 import Opensource.SharingService.dto.BoardDTO;
-import Opensource.SharingService.dto.ReservationDTO;
 import Opensource.SharingService.dto.ReservationInfoDTO;
 import Opensource.SharingService.entity.BoardEntity;
 import Opensource.SharingService.entity.BoardFileEntity;
@@ -27,6 +26,12 @@ public class BoardService {
     private final BoardFileRepository boardFileRepository;
     private final ReservationRepository reservationRepository;
 
+    public String getFileUrl(String storedFileName) {
+        // 파일이 저장된 서버의 URL 경로를 구성하여 반환
+        String serverBaseUrl = "https://example.com/files/"; // 파일이 호스팅되는 서버의 기본 URL
+        return serverBaseUrl + storedFileName; // 저장된 파일의 이름을 기반으로 URL 생성
+    }
+
     public void save(BoardDTO boardDTO) throws IOException {
         if (boardDTO.getBoardFile().isEmpty()) {
             // 첨부 파일 없음
@@ -51,10 +56,10 @@ public class BoardService {
             boardFile.transferTo(new File(savePath)); // 5
             BoardEntity boardEntity = BoardEntity.toSaveFileEntity(boardDTO);
             Long saveIndex = boardRepository.save(boardEntity).getBoardIndex();
-            BoardEntity board = boardRepository.findById(saveIndex).get();
+            BoardEntity boardIndex = boardRepository.findById(saveIndex).get();
 
 
-            BoardFileEntity boardFileEntity = BoardFileEntity.toBoardFileEntity(board, originalFilename, storedFileName);
+            BoardFileEntity boardFileEntity = BoardFileEntity.toBoardFileEntity(boardIndex, originalFilename, storedFileName);
             boardFileRepository.save(boardFileEntity);
         }
     } // 저장 처리
