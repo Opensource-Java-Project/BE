@@ -19,8 +19,7 @@ public class BoardEntity {
     private Long boardIndex;
 
     // size default - 255, nullable
-    @Column(length = 20, nullable = false)
-    private String boardWriter;
+
 
     @Column String boardTitle;
 
@@ -42,6 +41,10 @@ public class BoardEntity {
 
     @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<BoardFileEntity> boardFileEntityList = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_writer", referencedColumnName = "memberEmail")
+    private MemberEntity boardWriter;
 
 
     public static BoardEntity toSaveEntity(BoardDTO boardDTO) {

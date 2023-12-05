@@ -32,6 +32,8 @@ public class BoardService {
         return serverBaseUrl + storedFileName; // 저장된 파일의 이름을 기반으로 URL 생성
     }
 
+
+                                          // image에 대한 save 로직이 추가되어야한다.//
     public void save(BoardDTO boardDTO) throws IOException {
         if (boardDTO.getBoardFile().isEmpty()) {
             // 첨부 파일 없음

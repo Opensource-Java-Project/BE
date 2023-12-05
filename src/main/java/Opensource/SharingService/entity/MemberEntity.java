@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.lang.reflect.Member;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -28,6 +30,10 @@ public class MemberEntity {
 
     @Column
     private String sessionToken;
+
+    @OneToMany(mappedBy = "boardWriter", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BoardEntity> boards = new ArrayList<>();
+
     public boolean hasSession_Token() {
         return this.sessionToken != null && !this.sessionToken.isEmpty();
     }
