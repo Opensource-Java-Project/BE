@@ -18,7 +18,6 @@ public class BoardDTO {
     private String boardWriter; // 작성자
     private String boardTitle; // 제목
     private String boardContents; // 내용
-    private int boardHits; // 조회수
 
     private MultipartFile boardFile; // save.html -> Controller 파일담는용도
     private String originalFileName; // 원본 파일명
@@ -32,11 +31,6 @@ public class BoardDTO {
 
 
 
-    /*public BoardDTO(Long boardIndex, String boardWriter, String boardTitle){
-        this.boardIndex = boardIndex;
-        this.boardWriter = boardWriter;
-        this.boardTitle = boardTitle;
-    } // 상세보기 용 생성자*/
 
     public static BoardDTO toBoardDTO (BoardEntity boardEntity) {
         BoardDTO boardDTO = new BoardDTO();
@@ -51,8 +45,6 @@ public class BoardDTO {
             boardDTO.setFileAttached(boardEntity.getFileAttached());
         } else {
             boardDTO.setFileAttached(boardEntity.getFileAttached());
-            /*boardDTO.setOriginalFileName(boardEntity.getBoardFileEntityList().get(0).getOriginalFileName());
-            boardDTO.setStoredFileName(boardEntity.getBoardFileEntityList().get(0).getStoredFileName());*/
             boardDTO.setBoardImage(boardEntity.getBoardImage());
         }
 
