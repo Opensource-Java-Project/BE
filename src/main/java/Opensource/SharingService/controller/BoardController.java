@@ -42,12 +42,13 @@ public class BoardController {
     @PostMapping("/reservation")
     public ResponseEntity<String> reservation(@RequestBody ReservationInfoDTO reservationInfoDTO) {
         // DTO에 있는 값을 가져와서 사용할 수 있습니다.
+       /* Long boardIndex = reservationInfoDTO.getBoardIndex();
         String start = reservationInfoDTO.getStart();
         String end = reservationInfoDTO.getEnd();
         String content = reservationInfoDTO.getContent();
 
         // 가져온 값들을 조합하여 다시 응답으로 전송할 수 있습니다.
-        String reservationList = start + " - " + end + ": " + content;
+        String reservationList = start + " - " + end + ": " + content;*/
 
         // 예약 정보를 저장합니다.
         try {
@@ -58,7 +59,7 @@ public class BoardController {
         }
 
         // 조합한 정보를 반환합니다.
-        return new ResponseEntity<>(reservationList, HttpStatus.OK);
+        return new ResponseEntity<>("Successfully saved reservation", HttpStatus.OK); // 성공적인 응답을 JSON 형식으로 반환
     }
 
     /*@GetMapping("/saveReservation")
