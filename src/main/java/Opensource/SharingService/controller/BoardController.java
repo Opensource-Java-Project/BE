@@ -81,7 +81,7 @@ public class BoardController {
         BoardDTO boardDTO = boardService.findById(index);
         model.addAttribute("boardUpdate", boardDTO);
         return "update";
-    } // 게시글 수정 페이지로 이동하는 메소드
+    } // 게시글 수정 페이지 출력 메소드.
 
     @PostMapping("/update")
     public String update(@RequestBody BoardDTO boardDTO, Model model) {
