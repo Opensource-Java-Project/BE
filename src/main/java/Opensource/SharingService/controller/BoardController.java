@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,9 +27,12 @@ public class BoardController {
 
     @PostMapping("/upload")
     @ResponseBody // JSON 응답을 위한 어노테이션
-    public ResponseEntity<String> save(@RequestBody BoardDTO boardDTO) throws IOException {
+    public ResponseEntity<String> save(
+        @RequestParam ("BoardDTO") BoardDTO boardDTO,
+        @RequestParam ("image") MultipartFile[] image
+    )throws IOException {
         System.out.println("boardDTO = " + boardDTO);
-        boardService.save(boardDTO);
+        boardService.save(boardDTO/*,image*/);             // service에 있는 save 메서드에서 image 처리 로직  추가 후, image 주석 풀기
         return ResponseEntity.ok("Successfully saved!"); // 성공적인 응답을 JSON 형식으로 반환
     } // 게시글 저장 처리 완료(파일 저장)
 
@@ -77,7 +81,7 @@ public class BoardController {
     }
 
 
-    @GetMapping("/update/{index}")
+    /*@GetMapping("/update/{index}")
     public String updateForm(@PathVariable Long index, Model model) {
         BoardDTO boardDTO = boardService.findById(index);
         model.addAttribute("boardUpdate", boardDTO);
@@ -96,7 +100,7 @@ public class BoardController {
     public String delete(@PathVariable Long index) {
         boardService.delete(index);
         return "redirect:/board/";
-    } // 게시글 삭제 후 목록 페이지로 이동하는 메소드
+    } // 게시글 삭제 후 목록 페이지로 이동하는 메소드*/
 
 
 
