@@ -65,6 +65,7 @@ public class BoardService {
     } // 저장 처리
 
     public void saveReservation(ReservationInfoDTO reservationInfoDTO) throws IOException {
+
         ReservationInfoEntity reservationInfoEntity = ReservationInfoEntity.toSaveEntity(reservationInfoDTO);
         reservationRepository.save(reservationInfoEntity);
     }
