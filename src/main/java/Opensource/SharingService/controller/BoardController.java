@@ -25,6 +25,7 @@ public class BoardController {
         return "save";
     }
 
+    // 파일을 올리는 거라 postman에서 form-data로 해야됌
     @PostMapping("/upload")
     @ResponseBody // JSON 응답을 위한 어노테이션
     public ResponseEntity<String> save(
