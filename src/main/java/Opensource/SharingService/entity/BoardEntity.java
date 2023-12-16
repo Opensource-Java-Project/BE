@@ -54,7 +54,7 @@ public class BoardEntity {
 
     public static BoardEntity toSaveEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
-        boardEntity.setBoardWriter(boardDTO.getBoardWriter());
+        boardEntity.setBoardWriter(boardDTO.getMemberEmail());
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setBoardPrice(boardDTO.getBoardPrice());
@@ -66,7 +66,7 @@ public class BoardEntity {
     public static BoardEntity toUpdateEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.setBoardIndex(boardDTO.getBoardIndex());
-        boardEntity.setBoardWriter(boardDTO.getBoardWriter());
+        boardEntity.setBoardWriter(boardDTO.getMemberEmail());
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setBoardPrice(boardDTO.getBoardPrice());
@@ -77,7 +77,7 @@ public class BoardEntity {
 
     public static BoardEntity toSaveFileEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
-        boardEntity.setBoardWriter(boardDTO.getBoardWriter());
+        boardEntity.setBoardWriter(boardDTO.getMemberEmail());
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setBoardPrice(boardDTO.getBoardPrice());
