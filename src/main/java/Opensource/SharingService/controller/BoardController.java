@@ -29,10 +29,10 @@ public class BoardController {
     @ResponseBody // JSON 응답을 위한 어노테이션
     public ResponseEntity<String> save(
         @RequestParam ("BoardDTO") BoardDTO boardDTO,
-        @RequestParam ("image") MultipartFile[] boardImage //
+        @RequestParam ("boardImage") MultipartFile[] imageFiles //
     )throws IOException {
         System.out.println("boardDTO = " + boardDTO);
-        boardService.save(boardDTO,boardImage);             // service에 있는 save 메서드에서 image 처리 로직  추가 후, image 주석 풀기
+        boardService.save(boardDTO,imageFiles);             // service에 있는 save 메서드에서 image 처리 로직  추가 후, image 주석 풀기
         return ResponseEntity.ok("Successfully saved!"); // 성공적인 응답을 JSON 형식으로 반환
     } // 게시글 저장 처리 완료(파일 저장)
 
