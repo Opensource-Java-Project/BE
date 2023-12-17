@@ -25,11 +25,10 @@ public class BoardDTO {
     private Long boardIndex; // 게시글 번호
     private MultipartFile boardFile; // save.html -> Controller 파일담는용도
     private String originalFileName; // 원본 파일명
-    private String storedFileName; // 서버 저장용 파일 이름
+    // private String storedFileName; // 서버 저장용 파일 이름
     private int fileAttached; // 파일 첨부여부 (1 or 0)
 
-
-
+    // private List<ReservationInfoDTO> reservationList; // 여기에 예약 정보를 포함
 
 
 
@@ -59,6 +58,8 @@ public class BoardDTO {
 
         return boardDTO;
     } // 엔티티 -> DTO 변환 용 생성자
+
+
 
 
 }

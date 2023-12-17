@@ -26,15 +26,15 @@ public class BoardService {
     private final BoardFileRepository boardFileRepository;
     private final ReservationRepository reservationRepository;
 
-    public String getFileUrl(String storedFileName) {
-        // 파일이 저장된 서버의 URL 경로를 구성하여 반환
-        String serverBaseUrl = "https://example.com/files/"; // 파일이 호스팅되는 서버의 기본 URL
-        return serverBaseUrl + storedFileName; // 저장된 파일의 이름을 기반으로 URL 생성
-    }
+    public String getFileUrl(String originalFilename) {
+    // 파일이 저장된 서버의 URL 경로를 구성하여 반환
+    String serverBaseUrl = "http://localhost:3000/files/"; // 파일이 호스팅되는 서버의 기본 URL
+        return serverBaseUrl + originalFilename; // 저장된 파일의 이름을 기반으로 URL 생성
+}
 
 
-                                          // image에 대한 save 로직이 추가되어야한다.//
-    public void save(BoardDTO boardDTO) throws IOException {
+    // image에 대한 save 로직이 추가되어야한다.//
+    public void save(BoardDTO boardDTO, MultipartFile[] imageFiles) throws IOException {
         if (boardDTO.getBoardFile().isEmpty()) {
             // 첨부 파일 없음
             BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
@@ -53,15 +53,16 @@ public class BoardService {
              */
             MultipartFile boardFile = boardDTO.getBoardFile(); // 1
             String originalFilename = boardFile.getOriginalFilename(); // 2
-            String storedFileName = System.currentTimeMillis() + "_" + originalFilename; // 3
-            String savePath = "C:/springboot_img/" + storedFileName; // 4 C:springboot_img/1231231_내사진.jpg
+            // String storedFileName = System.currentTimeMillis() + "_" + originalFilename; // 3
+            String boardImage = getFileUrl(originalFilename); // url로 저장
+            String savePath = "C:/springboot_img/" + originalFilename; // 4 C:springboot_img/1231231_내사진.jpg
             boardFile.transferTo(new File(savePath)); // 5
             BoardEntity boardEntity = BoardEntity.toSaveFileEntity(boardDTO);
             Long saveIndex = boardRepository.save(boardEntity).getBoardIndex();
             BoardEntity boardIndex = boardRepository.findById(saveIndex).get();
 
 
-            BoardFileEntity boardFileEntity = BoardFileEntity.toBoardFileEntity(boardIndex, originalFilename, storedFileName);
+            BoardFileEntity boardFileEntity = BoardFileEntity.toBoardFileEntity(boardIndex, originalFilename, boardImage);
             boardFileRepository.save(boardFileEntity);
         }
     } // 저장 처리
