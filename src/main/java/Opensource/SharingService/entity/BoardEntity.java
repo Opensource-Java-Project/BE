@@ -52,38 +52,37 @@ public class BoardEntity {
     private MemberEntity boardWriter;
 
 
-    public static BoardEntity toSaveEntity(BoardDTO boardDTO) {
-        BoardEntity boardEntity = new BoardEntity();
-        boardEntity.setBoardWriter(boardDTO.getMemberEmail());
-        boardEntity.setBoardTitle(boardDTO.getBoardTitle());
-        boardEntity.setBoardContents(boardDTO.getBoardContents());
-        boardEntity.setBoardPrice(boardDTO.getBoardPrice());
+  public static BoardEntity toSaveEntity(BoardDTO boardDTO) {
+    BoardEntity boardEntity = new BoardEntity();
+    boardEntity.setBoardWriter(boardDTO.getMemberEmail());
+    boardEntity.setBoardTitle(boardDTO.getBoardTitle());
+    boardEntity.setBoardContents(boardDTO.getBoardContents());
+    boardEntity.setBoardPrice(boardDTO.getBoardPrice());
 
-        boardEntity.setFileAttached(0);
-        return boardEntity;
-    } // 엔티티 생성 메서드.
+    boardEntity.setFileAttached(0);
+    return boardEntity;
+  }
 
-    public static BoardEntity toUpdateEntity(BoardDTO boardDTO) {
-        BoardEntity boardEntity = new BoardEntity();
-        boardEntity.setBoardIndex(boardDTO.getBoardIndex());
-        boardEntity.setBoardWriter(boardDTO.getMemberEmail());
-        boardEntity.setBoardTitle(boardDTO.getBoardTitle());
-        boardEntity.setBoardContents(boardDTO.getBoardContents());
-        boardEntity.setBoardPrice(boardDTO.getBoardPrice());
+  public static BoardEntity toUpdateEntity(BoardDTO boardDTO) {
+    BoardEntity boardEntity = new BoardEntity();
+    boardEntity.setBoardIndex(boardDTO.getBoardIndex());
+    boardEntity.setBoardWriter(boardDTO.getMemberEmail());
+    boardEntity.setBoardTitle(boardDTO.getBoardTitle());
+    boardEntity.setBoardContents(boardDTO.getBoardContents());
+    boardEntity.setBoardPrice(boardDTO.getBoardPrice());
 
 
-        return boardEntity;
-    } // 엔티티 생성 메서드.
+    return boardEntity;
+  } // 엔티티 생성 메서드.
 
-    public static BoardEntity toSaveFileEntity(BoardDTO boardDTO) {
-        BoardEntity boardEntity = new BoardEntity();
-        boardEntity.setBoardWriter(boardDTO.getMemberEmail());
-        boardEntity.setBoardTitle(boardDTO.getBoardTitle());
-        boardEntity.setBoardContents(boardDTO.getBoardContents());
-        boardEntity.setBoardPrice(boardDTO.getBoardPrice());
-        boardEntity.setFileAttached(1); // 파일 있음.
-        return boardEntity;
-    } // 엔티티 생성 메서드.
-
+  public static BoardEntity toSaveFileEntity(BoardDTO boardDTO) {
+    BoardEntity boardEntity = new BoardEntity();
+    boardEntity.setBoardWriter(boardDTO.getMemberEmail());
+    boardEntity.setBoardTitle(boardDTO.getBoardTitle());
+    boardEntity.setBoardContents(boardDTO.getBoardContents());
+    boardEntity.setBoardPrice(boardDTO.getBoardPrice());
+    boardEntity.setFileAttached(1); // 파일 있음.
+    return boardEntity;
+  } // 엔티티 생성 메서드.
 
 }
