@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,17 +25,14 @@ public class BoardController {
     }
 
     // 파일을 올리는 거라 postman에서 form-data로 해야됌
-    @PostMapping(value = "/upload", consumes = { "multipart/form-data" })
-    @ResponseBody // JSON 응답을 위한 어노테이션
+    @PostMapping( "/upload")
     public ResponseEntity<String> save(
-        @RequestBody BoardDTO boardDTO,
-        @RequestPart ("boardImage") MultipartFile[] imageFiles //
+        @RequestBody BoardDTO boardDTO
     )throws IOException {
         System.out.println("boardDTO = " + boardDTO);
-        boardService.save(boardDTO,imageFiles);             // service에 있는 save 메서드에서 image 처리 로직  추가 후, image 주석 풀기
+        boardService.save(boardDTO);
         return ResponseEntity.ok("Successfully saved!"); // 성공적인 응답을 JSON 형식으로 반환
     } // 게시글 저장 처리 완료(파일 저장)
-
 
     @GetMapping("/reservation")
     public String reservationForm() {
