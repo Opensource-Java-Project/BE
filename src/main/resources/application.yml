@@ -7,8 +7,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/sharingservice
-    username:
-    password: &
+    username: hojin
+    password: 1234
   thymeleaf:
     cache: false
 

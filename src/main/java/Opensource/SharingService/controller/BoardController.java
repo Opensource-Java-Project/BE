@@ -2,12 +2,14 @@ package Opensource.SharingService.controller;
 
 import Opensource.SharingService.dto.BoardDTO;
 import Opensource.SharingService.dto.ReservationInfoDTO;
+import Opensource.SharingService.entity.MemberEntity;
 import Opensource.SharingService.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,18 +27,25 @@ public class BoardController {
     }
 
     // 파일을 올리는 거라 postman에서 form-data로 해야됌
-    @PostMapping( "/upload")
+    @PostMapping("/upload")
+    @ResponseBody
     public ResponseEntity<String> save(
-        @RequestBody BoardDTO boardDTO
-    )throws IOException {
-        System.out.println("boardDTO = " + boardDTO);
-        boardService.save(boardDTO);
-        return ResponseEntity.ok("Successfully saved!"); // 성공적인 응답을 JSON 형식으로 반환
-    } // 게시글 저장 처리 완료(파일 저장)
+        @RequestParam("images") MultipartFile[] boardFile,
+        @RequestParam("boardTitle") String boardTitle,
+        @RequestParam("boardContents") String boardContents,
+        @RequestParam("boardPrice") String boardPrice,
+        @RequestParam("memberEmail") MemberEntity memberEmail
+    ) throws IOException {
+        BoardDTO boardDTO = new BoardDTO();
+        boardDTO.setBoardTitle(boardTitle);
+        boardDTO.setBoardContents(boardContents);
+        boardDTO.setBoardPrice(boardPrice);
+        boardDTO.setMemberEmail(memberEmail);
 
-    @GetMapping("/reservation")
-    public String reservationForm() {
-        return "save";
+        // 여기서 boardDTO를 이용하여 데이터베이스에 저장하는 로직 수행
+        boardService.save(boardDTO, boardFile);
+
+        return ResponseEntity.ok("Successfully saved!");
     }
 
 
