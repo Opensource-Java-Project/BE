@@ -34,7 +34,7 @@ public class BoardService {
 
 
     // image에 대한 save 로직이 추가되어야한다.//
-    public void save(BoardDTO boardDTO, MultipartFile[] imageFiles) throws IOException {
+    public void save(BoardDTO boardDTO) throws IOException {
         if (boardDTO.getBoardFile().isEmpty()) {
             // 첨부 파일 없음
             BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
@@ -54,7 +54,6 @@ public class BoardService {
             MultipartFile boardFile = boardDTO.getBoardFile(); // 1
             String originalFilename = boardFile.getOriginalFilename(); // 2
             // String storedFileName = System.currentTimeMillis() + "_" + originalFilename; // 3
-            String boardImage = getFileUrl(originalFilename); // url로 저장
             String savePath = "C:/springboot_img/" + originalFilename; // 4 C:springboot_img/1231231_내사진.jpg
             boardFile.transferTo(new File(savePath)); // 5
             BoardEntity boardEntity = BoardEntity.toSaveFileEntity(boardDTO);
@@ -62,12 +61,13 @@ public class BoardService {
             BoardEntity boardIndex = boardRepository.findById(saveIndex).get();
 
 
-            BoardFileEntity boardFileEntity = BoardFileEntity.toBoardFileEntity(boardIndex, originalFilename, boardImage);
+            BoardFileEntity boardFileEntity = BoardFileEntity.toBoardFileEntity(boardIndex, originalFilename);
             boardFileRepository.save(boardFileEntity);
         }
     } // 저장 처리
 
-    public void saveReservation(ReservationInfoDTO reservationInfoDTO) throws IOException {
+
+        public void saveReservation(ReservationInfoDTO reservationInfoDTO) throws IOException {
 
         ReservationInfoEntity reservationInfoEntity = ReservationInfoEntity.toSaveEntity(reservationInfoDTO);
         reservationRepository.save(reservationInfoEntity);

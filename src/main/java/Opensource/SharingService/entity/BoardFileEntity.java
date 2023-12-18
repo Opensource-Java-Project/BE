@@ -26,7 +26,7 @@ public class BoardFileEntity {
     @JoinColumn(name = "boardIndex")
     private BoardEntity boardEntity;
 
-    public static BoardFileEntity toBoardFileEntity (BoardEntity boardEntity, String originalFileName, String storedFileName) {
+    public static BoardFileEntity toBoardFileEntity (BoardEntity boardEntity, String originalFileName) {
         BoardFileEntity boardFileEntity = new BoardFileEntity();
         boardFileEntity.setOriginalFileName(originalFileName);
         // boardFileEntity.setStoredFileName(storedFileName);

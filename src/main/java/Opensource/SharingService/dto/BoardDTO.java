@@ -21,7 +21,6 @@ public class BoardDTO {
     private String boardContents; // 내용
     private String boardPrice;
 
-    private List<String> boardImage; // 이미지 링크 목록
     private Long boardIndex; // 게시글 번호
     private MultipartFile boardFile; // save.html -> Controller 파일담는용도
     private String originalFileName; // 원본 파일명
@@ -52,7 +51,6 @@ public class BoardDTO {
             boardDTO.setFileAttached(boardEntity.getFileAttached());
         } else {
             boardDTO.setFileAttached(boardEntity.getFileAttached());
-            boardDTO.setBoardImage(boardEntity.getBoardImage());
         }
 
 
